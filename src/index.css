@@ -1,6 +1,6 @@
 body {
+  height: 100vh;
   font-size: 16px;
-  padding: 10px;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,11 +10,12 @@ body {
 }
 
 .container {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: #7e7e7e;
+  width: 100vw !important;
+  max-width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background-color: #c2c2c2;
+  padding: 0 !important;
 }
 
 @media (min-width: 360px) {
@@ -22,20 +23,34 @@ body {
     width: 90%;
     max-width: 1000px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
   }
 }
 
 .header, .footer {
-  background-color: #fff;
+  background-color: #FAC37F;
+  min-height: 5vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Arima', cursive;
+  font-weight: 600;
+  font-size: 40px;
+  color: #A75E2A;
+}
+
+.footer {
   padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #ccc;
 }
 
 .main {
-  background-color: #fff;
+  background-color: #FFE2BD;
   padding: 20px;
-  margin-top: 10px;
   min-height: 300px;
   text-align: center;
 }
