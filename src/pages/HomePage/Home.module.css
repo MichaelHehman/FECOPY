@@ -1,0 +1,26 @@
+.dots {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    list-style: none;
+}
+
+.taskList {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.taskListTitle {
+    font-size: 32px;
+    color: #A75E2A;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
