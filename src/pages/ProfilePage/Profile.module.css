@@ -1,0 +1,139 @@
+/* General Container */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background-color: #FFE2BD; /* Matches app's main background */
+}
+
+/* Profile Card */
+.profile-card {
+  width: 90%;
+  max-width: 500px;
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: #FAC37F; /* Matches app header/footer color */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #A75E2A; /* Matches header font color */
+}
+
+/* Avatar */
+.profile-avatar {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Name and Email */
+.profile-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #A75E2A;
+}
+
+.profile-email {
+  color: gray;
+  font-size: 1em;
+}
+
+/* Form Buttons */
+.form-buttons {
+  text-align: center;
+}
+
+/* Edit Profile Button */
+.edit-profile-btn {
+  display: inline-block;
+  margin: 20px auto 0;
+  background-color: #A75E2A;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+/* Household Members */
+.household-members {
+  width: 90%;
+  max-width: 500px;
+  margin-top: 20px;
+  background-color: #FAC37F;
+  border-radius: 15px;
+  padding: 15px;
+  color: #A75E2A;
+}
+
+.household-members h3 {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* Member Card */
+.member-card {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #FFE2BD;
+  border-radius: 10px;
+  padding: 10px;
+  color: #A75E2A;
+}
+
+/* Add User Button */
+.add-user-btn {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #A75E2A;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Footer Buttons */
+.footer-buttons {
+  width: 90%;
+  max-width: 500px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer-buttons button {
+  flex: 1;
+  margin: 0 5px;
+  background-color: #A75E2A;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.logout-btn {
+  color: red;
+  background-color: #FFE2BD;
+}
+
+/* Responsive Styling */
+@media (max-width: 430px) {
+  .profile-card,
+  .household-members,
+  .footer-buttons {
+      width: 100%;
+  }
+
+  .profile-name {
+      font-size: 1.25em;
+  }
+
+  .profile-email {
+      font-size: 0.9em;
+  }
+}
