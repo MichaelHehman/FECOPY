@@ -1,30 +1,50 @@
 import React, { useState } from 'react';
-import { Card, Avatar, Form, Input, Button, List } from 'antd';
+import { Card, Avatar, Form, Input, Button, List, Modal } from 'antd';
 import { UserOutlined, SettingOutlined, QuestionCircleOutlined, LogoutOutlined, PlusOutlined } from '@ant-design/icons';
 import './Profile.module.css';
 
+
 const Profile = () => {
   const [user, setUser] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
+    name: "Dikshya Thapa",
+    email: "dikshyathapa1414@gmail.com",
   });
   
   const [householdMembers, setHouseholdMembers] = useState([
-    { name: "Jane Smith", email: "jane.smith@example.com" },
+    { name: "Shreya Thapa", email: "shreyathapa@gmail.com" },
     { name: "Alice Johnson", email: "alice.johnson@example.com" },
-    { name: "Bob Brown", email: "bob.brown@example.com" }
+
   ]);
 
   const [editing, setEditing] = useState(false);
+  const [currentMember, setCurrentMember] = useState(null);
+  const [isMemberModalVisible, setIsMemberModalVisible] = useState(false);
 
   const handleFinish = (values) => {
     setUser(values);
     setEditing(false);
   };
 
-  const addHouseholdMember = () => {
-    const newUser = { name: "New User", email: "new.user@example.com" };
-    setHouseholdMembers([...householdMembers, newUser]);
+  const handleMemberFinish = (values) => {
+    if (currentMember) {
+      const updatedMembers = householdMembers.map(member => 
+        member.email === currentMember.email ? values : member
+      );
+      setHouseholdMembers(updatedMembers);
+    } else {
+      setHouseholdMembers([...householdMembers, values]);
+    }
+    setIsMemberModalVisible(false);
+    setCurrentMember(null);
+  };
+
+  const openMemberModal = (member = null) => {
+    setCurrentMember(member);
+    setIsMemberModalVisible(true);
+  };
+
+  const deleteHouseholdMember = (email) => {
+    setHouseholdMembers(householdMembers.filter(member => member.email !== email));
   };
 
   return (
@@ -63,9 +83,7 @@ const Profile = () => {
               <Button type="primary" htmlType="submit">
                 Save
               </Button>
-              <Button
-                onClick={() => setEditing(false)}
-              >
+              <Button onClick={() => setEditing(false)}>
                 Cancel
               </Button>
             </Form.Item>
@@ -83,7 +101,12 @@ const Profile = () => {
           dataSource={householdMembers}
           renderItem={member => (
             <List.Item className="member-card">
-              <Card>
+              <Card
+                actions={[
+                  <Button onClick={() => openMemberModal(member)}>Edit</Button>,
+                  <Button onClick={() => deleteHouseholdMember(member.email)}>Delete</Button>
+                ]}
+              >
                 <Card.Meta
                   avatar={<Avatar icon={<UserOutlined />} />}
                   title={member.name}
@@ -97,11 +120,47 @@ const Profile = () => {
           type="dashed"
           icon={<PlusOutlined />}
           className="add-user-btn"
-          onClick={addHouseholdMember}
+          onClick={() => openMemberModal()}
         >
           Add User
         </Button>
       </div>
+
+      <Modal
+        title={currentMember ? "Edit Household Member" : "Add Household Member"}
+        visible={isMemberModalVisible}
+        onCancel={() => setIsMemberModalVisible(false)}
+        footer={null}
+      >
+        <Form
+          name="memberForm"
+          layout="vertical"
+          initialValues={currentMember || { name: "", email: "" }}
+          onFinish={handleMemberFinish}
+        >
+          <Form.Item
+            label="Name"
+            name="name"
+            rules={[{ required: true, message: 'Please input the name!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ required: true, type: 'email', message: 'Please input a valid email!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              {currentMember ? "Update" : "Add"}
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
 
       <div className="footer-buttons">
         <Button type="text" icon={<SettingOutlined />}>

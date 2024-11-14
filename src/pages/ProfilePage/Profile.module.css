@@ -1,4 +1,4 @@
-/* General Container */
+/* General Profile Container */
 .profile-container {
   display: flex;
   flex-direction: column;
@@ -9,6 +9,7 @@
   box-sizing: border-box;
   overflow-x: hidden;
   background-color: #FFE2BD; /* Matches app's main background */
+  flex: 1; /* Allow to grow and fill space between header and footer */
 }
 
 /* Profile Card */
@@ -126,14 +127,14 @@
   .profile-card,
   .household-members,
   .footer-buttons {
-      width: 100%;
+    width: 100%;
   }
 
   .profile-name {
-      font-size: 1.25em;
+    font-size: 1.25em;
   }
 
   .profile-email {
-      font-size: 0.9em;
+    font-size: 0.9em;
   }
 }
