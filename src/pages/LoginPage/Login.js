@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import styles from './Login.module.css';
 import { Button, Form, Input } from 'antd';
+import { login } from '../../services/authService';
 
 const Login = ({ setIsLoggedIn }) => {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSignup = () => {
         console.log('Redirecting to Sign-Up');
+        navigate("/signup");
     };
 
 
-    const handleLogin = () => {
-        // localStorage.setItem("token", "user_token");
+    const handleLogin = async () => {
+        await login({ email, password });
         console.log('Logging in with:', { email, password });
         setIsLoggedIn(false);
     };
