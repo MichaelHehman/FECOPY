@@ -1,180 +1,124 @@
-import React, { useState } from 'react';
-import { Card, Avatar, Form, Input, Button, List, Modal } from 'antd';
-import { UserOutlined, SettingOutlined, QuestionCircleOutlined, LogoutOutlined, PlusOutlined } from '@ant-design/icons';
-import './Profile.module.css';
-
+import React, { useState } from "react";
+import { Button, Card, List, Modal, Form, Input } from "antd";
+import "./Profile.module.css";
 
 const Profile = () => {
-  const [user, setUser] = useState({
-    name: "Dikshya Thapa",
-    email: "dikshyathapa1414@gmail.com",
-  });
-  
   const [householdMembers, setHouseholdMembers] = useState([
-    { name: "Shreya Thapa", email: "shreyathapa@gmail.com" },
-    { name: "Alice Johnson", email: "alice.johnson@example.com" },
-
+    { name: "Shreya Thapa", email: "Shreya.thapa@example.com" },
+    { name: "Shova Thapa", email: "Shova.Thapa@example.com" },
   ]);
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [form] = Form.useForm();
 
-  const [editing, setEditing] = useState(false);
-  const [currentMember, setCurrentMember] = useState(null);
-  const [isMemberModalVisible, setIsMemberModalVisible] = useState(false);
-
-  const handleFinish = (values) => {
-    setUser(values);
-    setEditing(false);
+  const showAddMemberModal = () => {
+    setIsAddModalVisible(true);
   };
 
-  const handleMemberFinish = (values) => {
-    if (currentMember) {
-      const updatedMembers = householdMembers.map(member => 
-        member.email === currentMember.email ? values : member
-      );
-      setHouseholdMembers(updatedMembers);
-    } else {
+  const handleAddMember = () => {
+    form.validateFields().then((values) => {
       setHouseholdMembers([...householdMembers, values]);
-    }
-    setIsMemberModalVisible(false);
-    setCurrentMember(null);
+      setIsAddModalVisible(false);
+      form.resetFields();
+    });
   };
 
-  const openMemberModal = (member = null) => {
-    setCurrentMember(member);
-    setIsMemberModalVisible(true);
+  const handleCancelAdd = () => {
+    setIsAddModalVisible(false);
+    form.resetFields();
   };
 
   const deleteHouseholdMember = (email) => {
-    setHouseholdMembers(householdMembers.filter(member => member.email !== email));
+    setHouseholdMembers(householdMembers.filter((member) => member.email !== email));
   };
 
   return (
     <div className="profile-container">
-      <Card className="profile-card">
+      {/* Profile Card */}
+      <div className="profile-card">
         <div className="profile-avatar">
-          <Avatar size={100} icon={<UserOutlined />} />
+          <img
+            src="https://via.placeholder.com/100"
+            alt="Profile"
+          />
         </div>
-        <h2 className="profile-name">{user.name}</h2>
-        <p className="profile-email">{user.email}</p>
+        <h2 className="profile-name">Dikshya Thapa</h2>
+        <p className="profile-email">dikshya.thapa@example.com</p>
+      </div>
 
-        {editing ? (
-          <Form
-            name="profileForm"
-            layout="vertical"
-            initialValues={user}
-            onFinish={handleFinish}
-          >
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={[{ required: true, message: 'Please input your name!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ required: true, type: 'email', message: 'Please input a valid email!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item className="form-buttons">
-              <Button type="primary" htmlType="submit">
-                Save
-              </Button>
-              <Button onClick={() => setEditing(false)}>
-                Cancel
-              </Button>
-            </Form.Item>
-          </Form>
-        ) : (
-          <Button type="primary" onClick={() => setEditing(true)} className="edit-profile-btn">
-            Edit Profile
-          </Button>
-        )}
-      </Card>
-
+      {/* Household Members */}
       <div className="household-members">
-        <h3>Household Members</h3>
+        <h3 className="section-title">Household Members</h3>
         <List
+          grid={{ gutter: 16, column: 2 }}
           dataSource={householdMembers}
-          renderItem={member => (
-            <List.Item className="member-card">
+          renderItem={(member) => (
+            <List.Item>
               <Card
+                className="member-card"
+                cover={
+                  <img
+                    alt={member.name}
+                    src="https://via.placeholder.com/100" // Replace with user-uploaded image
+                  />
+                }
                 actions={[
-                  <Button onClick={() => openMemberModal(member)}>Edit</Button>,
-                  <Button onClick={() => deleteHouseholdMember(member.email)}>Delete</Button>
+                  <Button onClick={() => deleteHouseholdMember(member.email)}>Delete</Button>,
                 ]}
               >
                 <Card.Meta
-                  avatar={<Avatar icon={<UserOutlined />} />}
                   title={member.name}
                   description={member.email}
+                  style={{ textAlign: "center" }}
                 />
               </Card>
             </List.Item>
           )}
         />
-        <Button
-          type="dashed"
-          icon={<PlusOutlined />}
-          className="add-user-btn"
-          onClick={() => openMemberModal()}
-        >
-          Add User
+        <Button className="add-user-btn" onClick={showAddMemberModal}>
+          + Add Member
         </Button>
       </div>
 
+      {/* Add Member Modal */}
       <Modal
-        title={currentMember ? "Edit Household Member" : "Add Household Member"}
-        visible={isMemberModalVisible}
-        onCancel={() => setIsMemberModalVisible(false)}
-        footer={null}
+        title="Add New Member"
+        visible={isAddModalVisible}
+        onOk={handleAddMember}
+        onCancel={handleCancelAdd}
+        okText="Add"
+        cancelText="Cancel"
       >
-        <Form
-          name="memberForm"
-          layout="vertical"
-          initialValues={currentMember || { name: "", email: "" }}
-          onFinish={handleMemberFinish}
-        >
+        <Form form={form} layout="vertical">
           <Form.Item
-            label="Name"
             name="name"
-            rules={[{ required: true, message: 'Please input the name!' }]}
+            label="Full Name"
+            rules={[{ required: true, message: "Please enter the full name" }]}
           >
-            <Input />
+            <Input placeholder="Enter full name" />
           </Form.Item>
-
           <Form.Item
-            label="Email"
             name="email"
-            rules={[{ required: true, type: 'email', message: 'Please input a valid email!' }]}
+            label="Email"
+            rules={[
+              { required: true, message: "Please enter the email" },
+              { type: "email", message: "Please enter a valid email" },
+            ]}
           >
-            <Input />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              {currentMember ? "Update" : "Add"}
-            </Button>
+            <Input placeholder="Enter email address" />
           </Form.Item>
         </Form>
       </Modal>
-
+      {/* Footer Navigation */}
       <div className="footer-buttons">
-        <Button type="text" icon={<SettingOutlined />}>
-          Settings
-        </Button>
-        <Button type="text" icon={<QuestionCircleOutlined />}>
-          Help
-        </Button>
-        <Button type="text" icon={<LogoutOutlined />} className="logout-btn">
-          Log Out
-        </Button>
+        <Button>Home</Button>
+        <Button>Settings</Button>
+        <Button>Logout</Button>
       </div>
     </div>
+    
   );
 };
 
 export default Profile;
+
+
