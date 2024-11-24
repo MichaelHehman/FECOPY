@@ -10,15 +10,28 @@ const Login = ({ setIsLoggedIn }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [errorUser, setErrorUser] = useState(false);
+    const [errorPassword, setErrorPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleSignup = () => {
         console.log('Redirecting to Sign-Up');
         navigate("/signup");
     };
 
-
     const handleLogin = async () => {
-        await login({ email, password });
-        console.log('Logging in with:', { email, password });
+        await login({ email, password })
+            .then((res) => {
+                if (res.status === 404) {
+                    setErrorUser(true);
+                    setErrorPassword(false);
+                }
+                else if (res.status === 401) {
+                    setErrorUser(false);
+                    setErrorPassword(true);
+                }
+                setErrorMessage(res.message);
+            });
         setIsLoggedIn(false);
     };
 
@@ -34,6 +47,8 @@ const Login = ({ setIsLoggedIn }) => {
                 <Form.Item
                     className={styles.formItem}
                     name="email"
+                    validateStatus={errorUser ? 'error' : 'success'}
+                    help={errorUser ? errorMessage : ''}
                     rules={[{ required: true, message: 'Please enter your email!' }]}
                 >
                     <Input
@@ -47,6 +62,8 @@ const Login = ({ setIsLoggedIn }) => {
                 <Form.Item
                     className={styles.formItem}
                     name="password"
+                    validateStatus={errorPassword ? 'error' : 'success'}
+                    help={errorPassword ? errorMessage : ''}
                     rules={[{ required: true, message: 'Please enter your password!' }]}
                 >
                     <Input.Password

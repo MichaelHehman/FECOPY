@@ -41,8 +41,8 @@ const login = async (credentials) => {
                 notifier.success("Login successful!");
             });
     } catch (err) {
-        console.log(err.message);
-        errorHandler(err.message);
+        errorHandler(err.response?.data?.message);
+        return { status: err.response?.status, message: err.response?.data?.message };
     }
 };
 

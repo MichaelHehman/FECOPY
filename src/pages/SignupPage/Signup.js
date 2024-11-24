@@ -37,7 +37,7 @@ const Signup = () => {
                 size='large'
                 className={styles.signupForm}
             >
-                <h2 className={styles.header}>Sign Up</h2>
+                <h2 classNa me={styles.header}>Sign Up</h2>
 
                 <Form.Item
                     name="name"
