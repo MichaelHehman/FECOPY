@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, List, Typography, Progress, Space, Tag } from 'antd';
+import { Card, List, Typography, Progress, Tag } from 'antd';
 import styles from './Activities.module.css';
 
 const { Title, Text } = Typography;
@@ -24,6 +24,18 @@ const Activities = () => {
       doneBy: 'Michael',
       date: '10/07/2024',
     },
+    {
+      id: 1,
+      title: 'Buy new detergent for dishwasher',
+      doneBy: 'Michael',
+      date: '10/07/2024',
+    },
+    {
+      id: 1,
+      title: 'Buy new detergent for dishwasher',
+      doneBy: 'Michael',
+      date: '10/07/2024',
+    },
   ];
 
   return (
@@ -34,17 +46,17 @@ const Activities = () => {
           <Progress
             type="circle"
             percent={60}
-            strokeColor="#FFD700"
-            trailColor="#F08080"
+            strokeColor="#FFD700" // Gold for "Done"
+            trailColor="#F08080" // Light Coral for "Not Done"
             size={120}
             className={styles.progressCircle}
           />
           <div>
-            <Title level={4} className={styles.progressTitle}>Household Dashboard</Title>
+            <Title level={4} className={styles.progressTitle}>Nhi's Progress</Title> {/* Changed Title */}
             <div className={styles.progressStatus}>
               <div className={styles.statusItem}>
                 <span className={styles.statusDot} style={{ backgroundColor: '#F08080' }}></span>
-                <Text className={styles.statusText}>Not done</Text>
+                <Text className={styles.statusText}>NOT done</Text>
                 <Text className={styles.statusPercent}>40%</Text>
               </div>
               <div className={styles.statusItem}>
@@ -58,29 +70,31 @@ const Activities = () => {
       </Card>
 
       {/* Activities Feed Section */}
-      <Title level={4} className={styles.feedTitle}>Activities Feed</Title>
       <Card className={styles.activitiesCard}>
-        <List
-          dataSource={tasks}
-          renderItem={(task) => (
-            <List.Item className={styles.taskItem}>
-              <div className={styles.taskHeader}>
-                <Tag color="red" className={styles.taskTag}>Task #{task.id}</Tag>
-              </div>
-              <Title level={5} className={styles.taskTitle}>{task.title}</Title>
-              <div className={styles.taskDetails}>
-                <Text>
-                  <span className={styles.detailLabel}>Done by: </span>
-                  <span className={styles.detailValue}>{task.doneBy}</span>
-                </Text>
-                <Text>
-                  <span className={styles.detailLabel}>Date: </span>
-                  <span className={styles.detailValue}>{task.date}</span>
-                </Text>
-              </div>
-            </List.Item>
-          )}
-        />
+        <div className={styles.feedHeader} style={{ backgroundColor: '#A75E2A', color: 'white', padding: '10px', borderRadius: '8px 8px 0 0' }}> {/* Updated header style */}
+          <Title level={4} className={styles.feedTitle} style={{ margin: 0, color: '#FFF8E7' }}>Activities Feed</Title> {/* Updated title color */}
+        </div>
+        <div className={styles.activitiesList}>
+          <List
+            dataSource={tasks}
+            renderItem={(task) => (
+              <List.Item className={styles.taskItem}>
+                <div className={styles.taskHeader}>
+                  <Tag className={styles.taskTag} style={{ backgroundColor: '#FF9999', color: 'white', border: 'none' }}>Task #{task.id}</Tag> {/* Updated tag style */}
+                </div>
+                <Title level={5} className={styles.taskTitle}>{task.title}</Title>
+                <div className={styles.taskDetails}>
+                  <Text>
+                    <i>Done by</i> <span className={styles.detailValue}>{task.doneBy}</span>
+                  </Text>
+                  <Text>
+                    <i>Date</i> <span className={styles.detailValue}>{task.date}</span>
+                  </Text>
+                </div>
+              </List.Item>
+            )}
+          />
+        </div>
       </Card>
     </div>
   );
