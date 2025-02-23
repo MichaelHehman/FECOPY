@@ -70,7 +70,6 @@ const Activities = () => {
       </Card>
 
       {/* Activities Feed Section */}
-      <Card className={styles.activitiesCard}>
         <div className={styles.feedHeader} style={{ backgroundColor: '#A75E2A', color: 'white', padding: '10px', borderRadius: '8px 8px 0 0' }}> {/* Updated header style */}
           <Title level={4} className={styles.feedTitle} style={{ margin: 0, color: '#FFF8E7' }}>Activities Feed</Title> {/* Updated title color */}
         </div>
@@ -95,7 +94,6 @@ const Activities = () => {
             )}
           />
         </div>
-      </Card>
     </div>
   );
 };
