@@ -70,30 +70,24 @@ const Activities = () => {
       </Card>
 
       {/* Activities Feed Section */}
-        <div className={styles.feedHeader} style={{ backgroundColor: '#A75E2A', color: 'white', padding: '10px', borderRadius: '8px 8px 0 0' }}> {/* Updated header style */}
-          <Title level={4} className={styles.feedTitle} style={{ margin: 0, color: '#FFF8E7' }}>Activities Feed</Title> {/* Updated title color */}
-        </div>
-        <div className={styles.activitiesList}>
-          <List
-            dataSource={tasks}
-            renderItem={(task) => (
-              <List.Item className={styles.taskItem}>
-                <div className={styles.taskHeader}>
-                  <Tag className={styles.taskTag} style={{ backgroundColor: '#FF9999', color: 'white', border: 'none' }}>Task #{task.id}</Tag> {/* Updated tag style */}
-                </div>
-                <Title level={5} className={styles.taskTitle}>{task.title}</Title>
-                <div className={styles.taskDetails}>
-                  <Text>
-                    <i>Done by</i> <span className={styles.detailValue}>{task.doneBy}</span>
-                  </Text>
-                  <Text>
-                    <i>Date</i> <span className={styles.detailValue}>{task.date}</span>
-                  </Text>
-                </div>
-              </List.Item>
-            )}
-          />
-        </div>
+      <div className={styles.feedHeader}>
+        <Title level={4} className={styles.feedTitle}>Activities Feed</Title>
+      </div>
+      <div className={styles.activitiesList}>
+        <List
+          dataSource={tasks}
+          renderItem={(task) => (
+            <List.Item className={styles.taskItem}>
+              <Tag className={styles.taskTag}>Task #{task.id}</Tag>
+              <Title level={5} className={styles.taskTitle}>{task.title}</Title>
+              <div className={styles.taskDetails}>
+                <Text>Done by <span className={styles.detailValue}>{task.doneBy}</span></Text>
+                <Text>Date <span className={styles.detailValue}>{task.date}</span></Text>
+              </div>
+            </List.Item>
+          )}
+        />
+      </div>
     </div>
   );
 };
