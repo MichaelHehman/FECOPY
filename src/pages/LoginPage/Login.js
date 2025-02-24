@@ -48,8 +48,9 @@ const Login = ({ setIsLoggedIn }) => {
                     className={styles.formItem}
                     name="email"
                     validateStatus={errorUser ? 'error' : 'success'}
-                    help={errorUser ? errorMessage : ''}
+                    help={errorUser ? errorMessage : undefined}
                     rules={[{ required: true, message: 'Please enter your email!' }]}
+                    onChange={() => setErrorUser(false)}
                 >
                     <Input
                         type="email"
@@ -63,12 +64,15 @@ const Login = ({ setIsLoggedIn }) => {
                     className={styles.formItem}
                     name="password"
                     validateStatus={errorPassword ? 'error' : 'success'}
-                    help={errorPassword ? errorMessage : ''}
+                    help={errorPassword ? errorMessage : undefined}
                     rules={[{ required: true, message: 'Please enter your password!' }]}
                 >
                     <Input.Password
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            setErrorPassword(false);
+                        }}
                         placeholder="Password"
                     />
                 </Form.Item>
