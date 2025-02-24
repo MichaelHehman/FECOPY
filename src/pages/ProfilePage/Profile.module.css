@@ -1,10 +1,10 @@
 .profile-container {
-  background-color: #f5d7a2;
+  background-color: #b1996f;
   padding: 20px;
   border-radius: 10px;
-  max-width: 430px; /* Matches iPhone 14 Pro Max width */
+  max-width: 350px; /* Matches iPhone 14 Pro Max width */
   margin: 0 auto;
-  height: 80vh; /* Total height set to 80% of the viewport */
+  height: 70vh; /* Total height set to 80% of the viewport */
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Distributes content evenly */
@@ -25,8 +25,8 @@
 }
 
 .profile-avatar img {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   border: 3px solid #f5d7a2;
 }
@@ -136,4 +136,206 @@
     font-size: 14px;
   }
 
+}
+
+.appTitle {
+  background-color: #f5d7a2;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #8B4513;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: calc(100% - 60px - 70px); /* Subtract header and bottom nav heights */
+  overflow-y: auto;
+}
+
+.profileSection {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+}
+
+.profileImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.profileInfo {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  flex: 1;
+}
+
+.profileInfo h2 {
+  margin: 0;
+  color: #8B4513;
+  font-size: 20px;
+}
+
+.profileInfo p {
+  margin: 5px 0;
+  color: #8B4513;
+}
+
+.joinDate {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.sweetHouseSection {
+  margin: 0 20px;
+  background: white;
+  padding: 10px;
+  border-radius: 15px;
+  height: calc(100vh - 400px); /* Adjust height to fit screen */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sweetHouseSection h2 {
+  color: #8B4513;
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.membersGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.memberCard {
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
+}
+
+.memberImage {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+.memberCard h3 {
+  margin: 0;
+  color: #8B4513;
+  font-size: 16px;
+}
+
+.memberCard p {
+  margin: 4px 0;
+  color: #8B4513;
+  font-size: 14px;
+}
+
+.memberActions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.actionButton {
+  background-color: #8B4513;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.addMemberBox {
+  cursor: pointer;
+  height: 100%;
+}
+
+.dottedBorder {
+  border: 2px dashed #8B4513;
+  border-radius: 8px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #8B4513;
+}
+
+.settingsNav {
+  position: fixed;
+  bottom: 90px; /* Position above bottom nav */
+  width: 50%;
+  max-width: 450px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  
+}
+
+.settingsNav button {
+  color: #f4f2f1 !important;
+  text-decoration: underline;
+}
+
+/* Scrollbar styling */
+.membersGrid::-webkit-scrollbar {
+  width: 4px;
+}
+
+.membersGrid::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.membersGrid::-webkit-scrollbar-thumb {
+  background: #8B4513;
+  border-radius: 2px;
+}
+
+/* Modal styles */
+.modalButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+:global(.ant-modal-content) {
+  border-radius: 12px !important;
+}
+
+:global(.ant-modal-header) {
+  border-radius: 12px 12px 0 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .pageContainer {
+    width: 100%;
+  }
+  
+  .settingsNav {
+    width: 100%;
+  }
 }
