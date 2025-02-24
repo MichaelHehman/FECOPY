@@ -1,6 +1,5 @@
-// AddTask.js
-import React from 'react';
-import { Form, Input, DatePicker, Button, Select, Upload } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button, Select, Upload, Radio, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import styles from './AddTask.module.css';
 
@@ -8,9 +7,26 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const AddTask = () => {
+  const [fileList, setFileList] = useState([]);
+  const [members, setMembers] = useState([]);
+
+  // Simulate API call to fetch team members
+  useEffect(() => {
+    setTimeout(() => {
+      setMembers([
+        { id: '1', name: 'John Doe' },
+        { id: '2', name: 'Jane Smith' },
+        { id: '3', name: 'Alice Johnson' },
+      ]);
+    }, 1000);
+  }, []);
+
   const handleSubmit = (values) => {
     console.log('Task created:', values);
+    message.success('Task successfully created!');
   };
+
+  const handleUploadChange = ({ fileList }) => setFileList(fileList);
 
   return (
     <div className={styles.container}>
@@ -31,29 +47,25 @@ const AddTask = () => {
           rules={[{ required: true, message: 'Please choose a member!' }]}
           className={styles.formItem}
         >
-          <Select placeholder="Choose 1 member">
-            <Option value="member1">Member 1</Option>
-            <Option value="member2">Member 2</Option>
-            {/* Add more members as needed */}
+          <Select placeholder="Choose a team member" loading={members.length === 0}>
+            {members.map((member) => (
+              <Option key={member.id} value={member.id}>
+                {member.name}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="From"
-          name="fromDate"
-          rules={[{ required: true, message: 'Please select a start date!' }]}
+          label="Repeat?"
+          name="repeat"
+          rules={[{ required: true, message: 'Please choose an option!' }]}
           className={styles.formItem}
         >
-          <DatePicker style={{ width: '100%' }} />
-        </Form.Item>
-
-        <Form.Item
-          label="To"
-          name="toDate"
-          rules={[{ required: true, message: 'Please select an end date!' }]}
-          className={styles.formItem}
-        >
-          <DatePicker style={{ width: '100%' }} />
+          <Radio.Group>
+            <Radio value="yes">Yes</Radio>
+            <Radio value="no">No</Radio>
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item label="Note" name="note" className={styles.formItem}>
@@ -61,11 +73,19 @@ const AddTask = () => {
         </Form.Item>
 
         <Form.Item label="Images" className={styles.uploadContainer}>
-          <Upload listType="picture-card" className={styles.uploadButton}>
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Add image</div>
-            </div>
+          <Upload
+            listType="picture-card"
+            fileList={fileList}
+            onChange={handleUploadChange}
+            beforeUpload={() => false} // Prevent auto-upload
+            className={styles.uploadButton}
+          >
+            {fileList.length < 5 && (
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Add image</div>
+              </div>
+            )}
           </Upload>
         </Form.Item>
 
