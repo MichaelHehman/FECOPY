@@ -1,0 +1,148 @@
+/* General Container */
+.container {
+  padding: 16px;
+  background-color: #FFF8E7; /* Light beige background */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+/* Progress Section - Fixed at top */
+.progressCard {
+  margin-bottom: 16px;
+  border: none;
+  background-color: #FFFFFF;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Prevents the progress card from shrinking */
+}
+
+.progressWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progressCircle {
+  margin-right: 16px;
+}
+
+.progressTitle {
+  font-size: 18px;
+  color: #A75E2A;
+}
+
+.progressStatus {
+  margin-top: 8px;
+}
+
+.statusItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.statusDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.statusText {
+  font-size: 14px;
+  color: #A75E2A;
+}
+
+.statusPercent {
+  margin-left: auto;
+  font-size: 14px;
+  color: #A75E2A;
+  font-weight: bold;
+}
+
+/* Activities Feed Section */
+.feedTitle {
+  margin-bottom: 12px;
+  color: #A75E2A;
+}
+
+.activitiesCard {
+  border: none;
+  background-color: #FFF2DC;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Task List Section - Scrollable */
+.taskListWrapper {
+  flex: 1; /* Takes remaining space */
+  overflow-y: auto; /* Enables vertical scrolling */
+  padding: 10px;
+  margin-bottom: 60px; /* Space for bottom navigation */
+}
+
+.taskCard {
+  width: 100%;
+  height: auto; /* Changed to auto to accommodate content */
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  background-color: #FFFFFF !important; /* Added !important to override ant design */
+}
+
+/* Remove margin from the last task card */
+.taskCard:last-child {
+  margin-bottom: 0;
+}
+
+.taskHeader {
+  margin-bottom: 8px;
+}
+
+.taskTag {
+  font-size: 12px;
+  background-color: #FF9999;
+  color: white;
+  border: none;
+}
+
+.taskTitle {
+  font-size: 16px;
+  color: #A75E2A;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.taskDescription {
+  display: block;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.taskMeta {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.taskDate,
+.taskTime {
+  background-color: #E5D1BD !important; /* Beige color for tags */
+  color: #A75E2A !important;
+  border: none;
+}
+
+.taskDetails {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #A75E2A;
+}
+
+.detailLabel {
+  font-weight: bold;
+}
+
+.detailValue {
+  color: #A75E2A;
+}
