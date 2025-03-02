@@ -61,7 +61,7 @@ function App() {
     )}
   )}
       <Layout.Footer className="footer">
-        &copy; 2025 Your Company
+        &copy; 2025 ChoreMate
       </Layout.Footer>
     </Layout>
   );
