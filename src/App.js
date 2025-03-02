@@ -10,22 +10,35 @@ import Profile from './pages/ProfilePage/Profile';
 import AddTask from './pages/AddTaskPage/AddTask';
 import Navbar from './components/NavBar';
 import { Layout } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const isAuthenticated = () => {
   return !!localStorage.getItem("token");
 };
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated());
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoggedIn(isAuthenticated());
+      setIsLoading(false);
+    }, 500);
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Layout className="container">
       {
-        isLoggedIn && (
+        isLoggedIn ? (
           <>
             <Layout.Header className="header">
               ChoreMate
+              <Navbar />
             </Layout.Header>
             <Layout.Content className="main">
               <Routes>
@@ -38,26 +51,20 @@ function App() {
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </Layout.Content>
-            <Layout.Footer className="footer">
-              <Navbar />
-            </Layout.Footer>
           </>
-
-        )
-      }
-
-      {
-        !isLoggedIn && (
-          <Routes>
-            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="*" element={<Navigate to="/login" />} />
-          </Routes>
-        )
-      }
-
+  ) : (
+    <Routes>
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+    )}
+  )}
+      <Layout.Footer className="footer">
+        &copy; 2025 Your Company
+      </Layout.Footer>
     </Layout>
-  )
+  );
 }
 
 export default App;
