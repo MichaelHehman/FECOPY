@@ -1,11 +1,8 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './NavBar.module.css';
 
 function NavBar() {
-    const location = useLocation();
-    const {pathname} = location;
-const NavBar=() => {
     return (
         <nav className={styles.nav}>
             <NavLink to="/" className={styles.navBtn}>
@@ -26,4 +23,6 @@ const NavBar=() => {
         </nav>
     );
 };
+}
 
+export default NavBar;
