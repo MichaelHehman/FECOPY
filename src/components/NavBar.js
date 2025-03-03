@@ -5,7 +5,7 @@ import styles from './NavBar.module.css';
 function NavBar() {
     const location = useLocation();
     const {pathname} = location;
-export default const NavBar=() => {
+const NavBar=() => {
     return (
         <nav className={styles.nav}>
             <NavLink to="/" className={styles.navBtn}>
