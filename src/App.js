@@ -1,6 +1,5 @@
 import './App.css';
 import Activities from './pages/ActivitiesPage/Activities';
-
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from './pages/LoginPage/Login';
 import Signup from './pages/SignupPage/Signup';
@@ -28,7 +27,11 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Layout className="container">
+      <div>Loading...<div/>
+      </Layout>
+    );
   }
 
   return (
@@ -37,7 +40,6 @@ function App() {
         isLoggedIn ? (
           <>
             <Layout.Header className="header">
-              ChoreMate
               <Navbar />
             </Layout.Header>
             <Layout.Content className="main">
@@ -55,13 +57,14 @@ function App() {
             </Layout.Content>
           </>
   ) : (
+    <Layout.Content className="main">
     <Routes>
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
+    </Layout.Content>
     )}
-  )}
       <Layout.Footer className="footer">
         &copy; 2025 ChoreMate
       </Layout.Footer>
