@@ -49,6 +49,8 @@ function App() {
                 <Route path="/to-do" element={<Todo />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<Navigate to="/" />} />
+           {/* Fallback redirect */}  
+                <Route path="*" element={<Navigate to="/" />} />  
               </Routes>
             </Layout.Content>
           </>
