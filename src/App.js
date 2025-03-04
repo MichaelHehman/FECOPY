@@ -28,8 +28,8 @@ function App() {
 
   if (isLoading) {
     return (
-      <Layout className="container">
-      <div>Loading...<div/>
+      <Layout> 
+      className="container">
       </Layout>
     );
   }
