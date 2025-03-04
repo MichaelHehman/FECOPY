@@ -3,11 +3,11 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';  
 import NavBar from './components/NavBar';  
   
-// Import your page components  
+// Import your page components with correct paths  
 import Home from './pages/HomePage/Home';  
 import Activities from './pages/ActivitiesPage/Activities';  
 import AddTask from './pages/AddTaskPage/AddTask';  
-import Todo from './pages/TodoPage/Todo';  
+import Todo from './pages/TodoPage/ToDoPage';  // Updated this import  
 import Profile from './pages/ProfilePage/Profile';  
 import Login from './pages/LoginPage/Login';  
 import Signup from './pages/SignupPage/Signup';  
