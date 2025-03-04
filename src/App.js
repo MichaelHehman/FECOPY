@@ -1,8 +1,9 @@
 import React, { Suspense } from 'react';  
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';  
+import { Routes, Route, useLocation } from 'react-router-dom';  
 import { TransitionGroup, CSSTransition } from 'react-transition-group';  
 import NavBar from './components/NavBar';  
 import './App.css';  
+import LoadingFallback from './components/LoadingFallback'; 
   
 // Lazy load pages for better performance  
 const Home = React.lazy(() => import('./pages/HomePage/Home'));  
@@ -54,9 +55,7 @@ function AppContent() {
   
 function App() {  
     return (  
-        <BrowserRouter>  
-            <AppContent />  
-        </BrowserRouter>  
+        <AppContent />  
     );  
 }  
   

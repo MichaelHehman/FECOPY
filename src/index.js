@@ -17,9 +17,7 @@ root.render(
         },
       }}
     > */}
-    <BrowserRouter>
       <App />
-    </BrowserRouter>
     {/* </ConfigProvider> */}
   </React.StrictMode >
 );
