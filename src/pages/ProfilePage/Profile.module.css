@@ -1,139 +1,93 @@
-.profile-container {
-  background-color: #f5d7a2;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 430px; /* Matches iPhone 14 Pro Max width */
-  margin: 0 auto;
-  height: 80vh; /* Total height set to 80% of the viewport */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Distributes content evenly */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.profile-header {
-  text-align: center;
-}
-
-.profile-card {
-  background-color: #f6edd9;
-  border-radius: 15px;
-  text-align: center;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.profile-avatar img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid #f5d7a2;
-}
-
-.profile-name {
-  font-size: 22px;
-  font-weight: bold;
-  color: #925e35;
-  margin-top: 10px;
-}
-
-.profile-email {
-  font-size: 14px;
-  color: #925e35;
-  margin-bottom: 20px;
-}
-
-.household-members {
-  flex-grow: 1; /* Ensures this section grows to fill space */
-  margin-top: 20px;
-  overflow-y: auto; /* Adds scrolling if content exceeds height */
-}
-
-.section-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #925e35;
-  margin-bottom: 15px;
-}
-
-.member-card {
-  background-color: #f6edd9;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.member-card img {
-  border-radius: 50%;
-  margin: 10px auto;
-}
-
-.add-user-btn {
-  display: block;
-  margin: 20px auto;
-  background-color: #f5d7a2;
-  border: 1px dashed #925e35;
-  color: #925e35;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.footer-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.footer-buttons .ant-btn {
-  background-color: transparent;
-  color: #925e35;
-  border: none;
-  font-weight: bold;
-}
-
-.footer-buttons .ant-btn:hover {
-  background-color: #f6edd9;
-}
-
-.nav-bar {
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #f6edd9;
-  padding: 10px 0;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.nav-bar button {
-  background-color: transparent;
-  color: #925e35;
-  border: none;
-  font-weight: bold;
-  padding: 10px 20px;
-}
-
-.nav-bar button:hover {
-  background-color: #f5d7a2;
-}
-
-@media screen and (max-width: 430px) {
-  .profile-container {
-    padding: 15px;
-  }
-
-  .profile-name {
-    font-size: 20px;
-  }
-
-  .section-title {
-    font-size: 16px;
-  }
-
-  .add-user-btn {
-    font-size: 14px;
-  }
-
-}
+.profileContainer {  
+  max-width: 1200px;  
+  margin: 0 auto;  
+  padding: 24px;  
+}  
+  
+.tabs {  
+  background: white;  
+  border-radius: 8px;  
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
+}  
+  
+.profileCard {  
+  padding: 24px;  
+  text-align: center;  
+}  
+  
+.avatarSection {  
+  margin-bottom: 24px;  
+}  
+  
+.avatar {  
+  cursor: pointer;  
+  position: relative;  
+  transition: all 0.3s;  
+}  
+  
+.avatar:hover .avatarOverlay {  
+  opacity: 1;  
+}  
+  
+.avatarOverlay {  
+  position: absolute;  
+  top: 0;  
+  left: 0;  
+  right: 0;  
+  bottom: 0;  
+  background: rgba(0, 0, 0, 0.5);  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  opacity: 0;  
+  transition: opacity 0.3s;  
+  border-radius: 50%;  
+}  
+  
+.profileForm {  
+  max-width: 400px;  
+  margin: 0 auto;  
+}  
+  
+.householdSection {  
+  padding: 24px;  
+}  
+  
+.sectionHeader {  
+  display: flex;  
+  justify-content: space-between;  
+  align-items: center;  
+  margin-bottom: 24px;  
+}  
+  
+.memberCard {  
+  margin-bottom: 16px;  
+  transition: all 0.3s;  
+}  
+  
+.memberCard:hover {  
+  transform: translateY(-2px);  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  
+}  
+  
+.modalFooter {  
+  text-align: right;  
+  margin-bottom: 0;  
+}  
+  
+/* Responsive Design */  
+@media (max-width: 768px) {  
+  .profileContainer {  
+    padding: 16px;  
+  }  
+  
+  .sectionHeader {  
+    flex-direction: column;  
+    gap: 16px;  
+    text-align: center;  
+  }  
+  
+  .sectionHeader button {  
+    width: 100%;  
+  }  
+}  

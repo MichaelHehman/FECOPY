@@ -1,121 +1,197 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import styles from './Login.module.css';
-import { Button, Form, Input } from 'antd';
-import { login } from '../../services/authService';
-
-const Login = ({ setIsLoggedIn }) => {
-    const navigate = useNavigate();
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const [errorUser, setErrorUser] = useState(false);
-    const [errorPassword, setErrorPassword] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-
-    const handleSignup = () => {
-        console.log('Redirecting to Sign-Up');
-        navigate("/signup");
-    };
-
-    const handleLogin = async () => {
-        await login({ email, password })
-            .then((res) => {
-                if (res.status === 404) {
-                    setErrorUser(true);
-                    setErrorPassword(false);
-                }
-                else if (res.status === 401) {
-                    setErrorUser(false);
-                    setErrorPassword(true);
-                }
-                setErrorMessage(res.message);
-            });
-        setIsLoggedIn(false);
-    };
-
-    return (
-        <div className={styles.loginPage}>
-            <Form
-                name="login-form"
-                layout="vertical"
-                onFinish={handleLogin}
-                size='large'
-                className={styles.loginForm}
-            >
-                <Form.Item
-                    className={styles.formItem}
-                    name="email"
-                    validateStatus={errorUser ? 'error' : 'success'}
-                    help={errorUser ? errorMessage : undefined}
-                    rules={[{ required: true, message: 'Please enter your email!' }]}
-                    onChange={() => setErrorUser(false)}
-                >
-                    <Input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email"
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    className={styles.formItem}
-                    name="password"
-                    validateStatus={errorPassword ? 'error' : 'success'}
-                    help={errorPassword ? errorMessage : undefined}
-                    rules={[{ required: true, message: 'Please enter your password!' }]}
-                >
-                    <Input.Password
-                        value={password}
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                            setErrorPassword(false);
-                        }}
-                        placeholder="Password"
-                    />
-                </Form.Item>
-
-                <Form.Item className={styles.formItem}>
-                    <Button type="primary" htmlType="submit" block>
-                        Login
-                    </Button>
-                </Form.Item>
-
-                <Form.Item>
-                    <Button onClick={handleSignup} className={styles.signupBtn} block>
-                        <img
-                            src="assets/images/signupLogo.png"
-                            alt="logo"
-                        />{' '}
-                        Sign up New Account
-                    </Button>
-                </Form.Item>
-
-                <Form.Item>
-                    <Button onClick={handleSignup} className={styles.signupBtn} block>
-                        <img
-                            src="assets/images/googleLogo.png"
-                            alt="logo"
-                        />{' '}
-                        Continue with Google
-                    </Button>
-                </Form.Item>
-
-                <Form.Item>
-                    <Button onClick={handleSignup} className={styles.signupBtn} block>
-                        <img
-                            src="assets/images/microsoftLogo.png"
-                            alt="logo"
-                        />{' '}
-                        Continue with Microsoft
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
-    );
-
-};
-
-export default Login;
+import React, { useState, useCallback } from 'react';  
+import { useNavigate } from "react-router-dom";  
+import { Button, Form, Input, Alert, Card, Typography, Spin } from 'antd';  
+import { UserOutlined, LockOutlined, GoogleOutlined } from '@ant-design/icons';  
+import { login, googleLogin } from '../../services/authService';  
+import styles from './Login.module.css';  
+  
+const { Title, Text } = Typography;  
+  
+const Login = ({ setIsLoggedIn }) => {  
+    const [form] = Form.useForm();  
+    const navigate = useNavigate();  
+    const [loading, setLoading] = useState(false);  
+    const [error, setError] = useState({  
+        show: false,  
+        message: '',  
+        type: 'error'  
+    });  
+  
+    // Rate limiting for login attempts  
+    const [loginAttempts, setLoginAttempts] = useState(0);  
+    const [lockoutTime, setLockoutTime] = useState(null);  
+  
+    const checkLockout = useCallback(() => {  
+        if (loginAttempts >= 5) {  
+            const timeLeft = lockoutTime - Date.now();  
+            if (timeLeft > 0) {  
+                setError({  
+                    show: true,  
+                    message: `Too many attempts. Please try again in ${Math.ceil(timeLeft / 1000)} seconds`,  
+                    type: 'error'  
+                });  
+                return true;  
+            }  
+            setLoginAttempts(0);  
+            setLockoutTime(null);  
+        }  
+        return false;  
+    }, [loginAttempts, lockoutTime]);  
+  
+    const handleLogin = useCallback(async (values) => {  
+        if (checkLockout()) return;  
+  
+        try {  
+            setLoading(true);  
+            setError({ show: false, message: '', type: 'error' });  
+  
+            const response = await login(values);  
+  
+            if (response.success) {  
+                // Reset attempts on successful login  
+                setLoginAttempts(0);  
+                setLockoutTime(null);  
+                  
+                // Store token securely  
+                sessionStorage.setItem('token', response.token);  
+                  
+                setIsLoggedIn(true);  
+                navigate('/dashboard');  
+            } else {  
+                // Increment attempts on failure  
+                const newAttempts = loginAttempts + 1;  
+                setLoginAttempts(newAttempts);  
+                  
+                if (newAttempts >= 5) {  
+                    setLockoutTime(Date.now() + 300000); // 5 minutes lockout  
+                }  
+  
+                setError({  
+                    show: true,  
+                    message: response.message || 'Login failed. Please check your credentials.',  
+                    type: 'error'  
+                });  
+            }  
+        } catch (err) {  
+            setError({  
+                show: true,  
+                message: 'An error occurred. Please try again later.',  
+                type: 'error'  
+            });  
+        } finally {  
+            setLoading(false);  
+        }  
+    }, [navigate, setIsLoggedIn, loginAttempts, checkLockout]);  
+  
+    const handleGoogleLogin = useCallback(async () => {  
+        try {  
+            setLoading(true);  
+            const response = await googleLogin();  
+            if (response.success) {  
+                setIsLoggedIn(true);  
+                navigate('/dashboard');  
+            }  
+        } catch (err) {  
+            setError({  
+                show: true,  
+                message: 'Google login failed. Please try again.',  
+                type: 'error'  
+            });  
+        } finally {  
+            setLoading(false);  
+        }  
+    }, [navigate, setIsLoggedIn]);  
+  
+    return (  
+        <div className={styles.loginContainer}>  
+            <Card className={styles.loginCard}>  
+                <Title level={2} className={styles.title}>Welcome Back</Title>  
+                <Text className={styles.subtitle}>Please login to continue</Text>  
+  
+                {error.show && (  
+                    <Alert  
+                        message={error.message}  
+                        type={error.type}  
+                        showIcon  
+                        className={styles.alert}  
+                    />  
+                )}  
+  
+                <Form  
+                    form={form}  
+                    name="login"  
+                    layout="vertical"  
+                    onFinish={handleLogin}  
+                    className={styles.form}  
+                >  
+                    <Form.Item  
+                        name="email"  
+                        rules={[  
+                            { required: true, message: 'Please enter your email!' },  
+                            { type: 'email', message: 'Please enter a valid email!' }  
+                        ]}  
+                    >  
+                        <Input   
+                            prefix={<UserOutlined />}  
+                            placeholder="Email"  
+                            disabled={loading}  
+                        />  
+                    </Form.Item>  
+  
+                    <Form.Item  
+                        name="password"  
+                        rules={[  
+                            { required: true, message: 'Please enter your password!' },  
+                            { min: 8, message: 'Password must be at least 8 characters!' }  
+                        ]}  
+                    >  
+                        <Input.Password  
+                            prefix={<LockOutlined />}  
+                            placeholder="Password"  
+                            disabled={loading}  
+                        />  
+                    </Form.Item>  
+  
+                    <Form.Item>  
+                        <Button  
+                            type="primary"  
+                            htmlType="submit"  
+                            className={styles.loginButton}  
+                            loading={loading}  
+                            block  
+                        >  
+                            Log In  
+                        </Button>  
+                    </Form.Item>  
+  
+                    <div className={styles.divider}>  
+                        <span>Or</span>  
+                    </div>  
+  
+                    <Button  
+                        icon={<GoogleOutlined />}  
+                        onClick={handleGoogleLogin}  
+                        className={styles.googleButton}  
+                        disabled={loading}  
+                        block  
+                    >  
+                        Continue with Google  
+                    </Button>  
+                </Form>  
+  
+                <div className={styles.footer}>  
+                    <Text>Don't have an account?</Text>  
+                    <Button   
+                        type="link"   
+                        onClick={() => navigate('/signup')}  
+                        disabled={loading}  
+                    >  
+                        Sign Up  
+                    </Button>  
+                </div>  
+            </Card>  
+        </div>  
+    );  
+};  
+  
+export default Login;  
