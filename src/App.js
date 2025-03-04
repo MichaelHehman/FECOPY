@@ -2,26 +2,23 @@ import React, { Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';  
 import { TransitionGroup, CSSTransition } from 'react-transition-group';  
 import NavBar from './components/NavBar';  
-import './App.css';  
-import LoadingFallback from './components/LoadingFallback'; 
   
-// Lazy load pages for better performance  
-const Home = React.lazy(() => import('./pages/HomePage/Home'));  
-const Activities = React.lazy(() => import('./pages/ActivitiesPage/Activities'));  
-const AddTask = React.lazy(() => import('./pages/AddTaskPage/AddTask'));  
-const Todo = React.lazy(() => import('./pages/ToDoPage/Todo'));  
-const Profile = React.lazy(() => import('./pages/ProfilePage/Profile'));  
-const Login = React.lazy(() => import('./pages/LoginPage/Login'));  
-const Signup = React.lazy(() => import('./pages/SignupPage/Signup'));  
+// Import your page components  
+import Home from './pages/HomePage/Home';  
+import Activities from './pages/ActivitiesPage/Activities';  
+import AddTask from './pages/AddTaskPage/AddTask';  
+import Todo from './pages/TodoPage/Todo';  
+import Profile from './pages/ProfilePage/Profile';  
+import Login from './pages/LoginPage/Login';  
+import Signup from './pages/SignupPage/Signup';  
   
-// Loading component  
-const LoadingFallback = () => (  
-    <div className="loading-spinner">  
-        <div className="spinner"></div>  
-    </div>  
+// Loading component    
+const LoadingFallback = () => (    
+    <div className="loading-spinner">    
+        <div className="spinner"></div>    
+    </div>    
 );  
   
-// Main app content with transitions  
 function AppContent() {  
     const location = useLocation();  
   
@@ -29,11 +26,7 @@ function AppContent() {
         <div className="app-container">  
             <Suspense fallback={<LoadingFallback />}>  
                 <TransitionGroup component={null}>  
-                    <CSSTransition  
-                        key={location.key}  
-                        classNames="page"  
-                        timeout={300}  
-                    >  
+                    <CSSTransition key={location.key} classNames="page" timeout={300}>  
                         <main className="main-content">  
                             <Routes location={location}>  
                                 <Route path="/" element={<Home />} />  
