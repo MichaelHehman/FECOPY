@@ -7,7 +7,7 @@ import NavBar from './components/NavBar';
 import Home from './pages/HomePage/Home';  
 import Activities from './pages/ActivitiesPage/Activities';  
 import AddTask from './pages/AddTaskPage/AddTask';  
-import Todo from './pages/TodoPage/ToDoPage';  // Updated this import  
+import Todo from './pages/ToDoPage/Todo';  // Updated this import path  
 import Profile from './pages/ProfilePage/Profile';  
 import Login from './pages/LoginPage/Login';  
 import Signup from './pages/SignupPage/Signup';  
