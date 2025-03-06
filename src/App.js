@@ -29,7 +29,7 @@ function App() {
   if (isLoading) {  
     return (  
       <Layout className="container">  
-        {/* Add a loading spinner or message here if desired */}  
+        {/* Loading spinner can go here */}  
       </Layout>  
     );  
   }  
@@ -49,7 +49,6 @@ function App() {
               <Route path="/add-task" element={<AddTask />} />  
               <Route path="/to-do" element={<Todo />} />  
               <Route path="/profile" element={<Profile />} />  
-              {/* Single fallback route */}  
               <Route path="*" element={<Navigate to="/" />} />  
             </Routes>  
           </Layout.Content>  
@@ -63,9 +62,7 @@ function App() {
           </Routes>  
         </Layout.Content>  
       )}  
-      <Layout.Footer className="footer">  
-        &copy; 2025 ChoreMate  
-      </Layout.Footer>  
+      {/* Footer removed to prevent mobile nav blockage */}  
     </Layout>  
   );  
 }  
