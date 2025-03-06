@@ -1,143 +1,186 @@
-.container {  
-  padding: 24px;  
-  max-width: 1200px;  
-  margin: 0 auto;  
-}  
+.container {    
+  padding: 24px;    
+  max-width: 1200px;    
+  margin: 0 auto;    
+}    
   
-.progressCard {  
-  margin-bottom: 24px;  
-  border-radius: 12px;  
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
-}  
+.progressCard {    
+  margin-bottom: 24px;    
+  border-radius: 12px;    
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);    
+}    
   
-.progressWrapper {  
-  display: flex;  
-  align-items: center;  
-  gap: 24px;  
-}  
+.progressWrapper {    
+  display: flex;    
+  align-items: center;    
+  gap: 24px;    
+}    
   
-.progressCircle {  
-  flex-shrink: 0;  
-}  
+.progressCircle {    
+  flex-shrink: 0;    
+}    
   
-.progressTitle {  
-  margin-bottom: 16px !important;  
-  color: #333;  
-}  
+.progressTitle {    
+  margin-bottom: 16px !important;    
+  color: #333;    
+}    
   
-.progressStatus {  
-  display: flex;  
+.progressStatus {    
+  display: flex;    
+  flex-direction: column;    
+  gap: 8px;    
+}    
+  
+.statusItem {    
+  display: flex;    
+  align-items: center;    
+  gap: 8px;    
+}    
+  
+.statusDot {    
+  width: 12px;    
+  height: 12px;    
+  border-radius: 50%;    
+}    
+  
+.statusText {    
+  min-width: 80px;    
+  color: #666;    
+}    
+  
+.statusPercent {    
+  font-weight: 600;    
+  color: #333;    
+}    
+  
+.feedHeader {    
+  display: flex;    
+  justify-content: space-between;    
+  align-items: center;    
+  margin-bottom: 16px;    
+}    
+  
+.feedTitle {    
+  margin: 0 !important;    
+}    
+  
+.datePicker {    
+  width: 300px;    
+}    
+  
+.activitiesList {    
+  background: white;    
+  border-radius: 12px;    
+  padding: 16px;    
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);    
+}    
+  
+.taskItem {    
+  display: flex;    
   flex-direction: column;  
-  gap: 8px;  
-}  
+  gap: 8px;    
+  padding: 16px !important;    
+  border-radius: 8px;    
+  background: #f8f9fa;    
+  margin-bottom: 12px;    
+  transition: all 0.3s ease;    
+}    
   
-.statusItem {  
+.taskItem:hover {    
+  background: #f0f2f5;    
+  transform: translateY(-2px);    
+}    
+  
+.taskTag {    
+  align-self: flex-start;    
+  margin-bottom: 4px;    
+}    
+  
+.taskTitle {    
+  margin: 0 !important;    
+  color: #333;    
+}    
+  
+.taskDetails {    
+  display: flex;    
+  gap: 24px;    
+  color: #666;    
+}    
+  
+.icon {    
+  margin-right: 8px;    
+  color: #999;    
+}    
+  
+.detailValue {    
+  color: #333;    
+  font-weight: 500;    
+}    
+  
+/* New styles for task actions */  
+.taskActions {  
   display: flex;  
-  align-items: center;  
   gap: 8px;  
+  margin-top: 8px;  
 }  
   
-.statusDot {  
-  width: 12px;  
-  height: 12px;  
-  border-radius: 50%;  
-}  
-  
-.statusText {  
-  min-width: 80px;  
-  color: #666;  
-}  
-  
-.statusPercent {  
-  font-weight: 600;  
-  color: #333;  
-}  
-  
-.feedHeader {  
-  display: flex;  
-  justify-content: space-between;  
-  align-items: center;  
-  margin-bottom: 16px;  
-}  
-  
-.feedTitle {  
-  margin: 0 !important;  
-}  
-  
-.datePicker {  
-  width: 300px;  
-}  
-  
-.activitiesList {  
-  background: white;  
-  border-radius: 12px;  
-  padding: 16px;  
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
-}  
-  
-.taskItem {  
-  display: flex;  
-  flex-direction: column;  
-  gap: 8px;  
-  padding: 16px !important;  
-  border-radius: 8px;  
-  background: #f8f9fa;  
-  margin-bottom: 12px;  
+.taskButton {  
+  padding: 4px 12px;  
+  border-radius: 4px;  
   transition: all 0.3s ease;  
 }  
   
-.taskItem:hover {  
-  background: #f0f2f5;  
-  transform: translateY(-2px);  
+.completeButton {  
+  background: #52c41a;  
+  color: white;  
+  border: none;  
 }  
   
-.taskTag {  
-  align-self: flex-start;  
-  margin-bottom: 4px;  
+.completeButton:hover {  
+  background: #389e0d;  
 }  
   
-.taskTitle {  
-  margin: 0 !important;  
-  color: #333;  
+.deleteButton {  
+  background: #ff4d4f;  
+  color: white;  
+  border: none;  
 }  
   
-.taskDetails {  
-  display: flex;  
-  gap: 24px;  
-  color: #666;  
+.deleteButton:hover {  
+  background: #cf1322;  
 }  
   
-.icon {  
-  margin-right: 8px;  
-  color: #999;  
-}  
+@media (max-width: 768px) {    
+  .progressWrapper {    
+    flex-direction: column;    
+    text-align: center;    
+  }    
   
-.detailValue {  
-  color: #333;  
-  font-weight: 500;  
-}  
+  .progressStatus {    
+    align-items: center;    
+  }    
   
-@media (max-width: 768px) {  
-  .progressWrapper {  
+  .feedHeader {    
+    flex-direction: column;    
+    gap: 16px;    
+  }    
+  
+  .datePicker {    
+    width: 100%;    
+  }    
+  
+  .taskDetails {    
+    flex-direction: column;    
+    gap: 8px;    
+  }    
+  
+  /* New responsive styles for task actions */  
+  .taskActions {  
     flex-direction: column;  
-    text-align: center;  
-  }  
-  
-  .progressStatus {  
-    align-items: center;  
-  }  
-  
-  .feedHeader {  
-    flex-direction: column;  
-    gap: 16px;  
-  }  
-  
-  .datePicker {  
     width: 100%;  
   }  
   
-  .taskDetails {  
-    flex-direction: column;  
-    gap: 8px;  
+  .taskButton {  
+    width: 100%;  
   }  
-}  
+}    
