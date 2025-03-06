@@ -1,79 +1,94 @@
-.nav {  
-    display: flex;  
-    flex-direction: row;  
-    justify-content: space-between;  
-    align-items: center;  
-    background-color: #FAC37F;  
-    padding: 0.5em 1em;  
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);  
-    z-index: 1000;  
+ /* Base styles used for both mobile and desktop */  
+ .nav {  
+  display: flex;  
+  flex-direction: row;  
+  justify-content: space-around;  
+  align-items: center;  
+  background-color: #FAC37F;  
+  width: 100%;  
+  z-index: 1000;  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
+}  
+  
+/* Mobile: Navbar fixed at bottom */  
+@media screen and (max-width: 600px) {  
+  .nav {  
+    position: fixed;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;  
+    height: 60px;            /* Fixed height for mobile */  
+    padding: 0 10px;  
   }  
-    
-  /* Mobile styles: fixed at bottom, reduced padding and dimensions */  
-  @media (max-width: 600px) {  
-    .nav {  
-      position: fixed;  
-      bottom: 0;  
-      left: 0;  
-      right: 0;  
-      padding: 0.3em 0.5em;  
-    }  
-      
-    .icon {  
-      width: 2em;  
-      height: 2em;  
-      padding: 0.2em;  
-    }  
-  }  
-    
-  /* Desktop styles: fixed at top */  
-  @media (min-width: 601px) {  
-    .nav {  
-      position: fixed;  
-      top: 0;  
-      left: 0;  
-      right: 0;  
-      bottom: auto;  
-      padding: 0.5em 1em;  
-    }  
-      
-    .icon {  
-      width: 2.5em;  
-      height: 2.5em;  
-      padding: 0.3em;  
-    }  
-  }  
-    
+  
   .navBtn {  
+    flex: 1;  
+    height: 100%;  
     display: flex;  
     justify-content: center;  
     align-items: center;  
+  }  
+  
+  .icon {  
+    width: 24px;             /* Fixed size for mobile icons */  
+    height: 24px;  
+    padding: 2px;  
+  }  
+}  
+  
+/* Desktop: Navbar fixed at top */  
+@media screen and (min-width: 601px) {  
+  .nav {  
+    position: fixed;  
+    top: 0;  
+    left: 0;  
+    right: 0;  
+    height: 70px;            /* Fixed height for desktop */  
+    padding: 0 20px;  
+  }  
+  
+  .navBtn {  
     flex: 1;  
-    padding: 0.5em;  
-    transition: all 0.3s ease;  
-    position: relative;  
+    height: 100%;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
   }  
-    
-  .navBtn:hover {  
-    background-color: rgba(255, 255, 255, 0.2);  
+  
+  .icon {  
+    width: 2.5em;            /* Use em units for desktop icons */  
+    height: 2.5em;  
+    padding: 0.3em;  
   }  
-    
-  .navBtn.active {  
-    color: #ffffff;  
-  }  
-    
-  .navBtn.active::after {  
-    content: '';  
-    position: absolute;  
-    bottom: 0;  
-    left: 50%;  
-    transform: translateX(-50%);  
-    width: 5px;  
-    height: 5px;  
-    background-color: #ffffff;  
-    border-radius: 50%;  
-  }  
-    
-  .navBtn:hover .icon {  
-    transform: scale(1.1);  
-  }  
+}  
+  
+/* Default button hover styles and active indicator */  
+.navBtn {  
+  position: relative;  
+  transition: background-color 0.3s ease;  
+}  
+  
+.navBtn:hover {  
+  background-color: rgba(255, 255, 255, 0.2);  
+}  
+  
+.navBtn.active {  
+  color: #ffffff;  
+}  
+  
+.navBtn.active::after {  
+  content: '';  
+  position: absolute;  
+  bottom: 4px;  
+  left: 50%;  
+  transform: translateX(-50%);  
+  width: 4px;  
+  height: 4px;  
+  background-color: #ffffff;  
+  border-radius: 50%;  
+}  
+  
+.navBtn:hover .icon {  
+  transform: scale(1.1);  
+  transition: transform 0.3s ease;  
+}  
