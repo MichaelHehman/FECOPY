@@ -10,6 +10,7 @@ import AddTask from './pages/AddTaskPage/AddTask';
 import Navbar from './components/NavBar';  
 import { Layout } from 'antd';  
 import { useState, useEffect } from 'react';  
+import { TaskProvider } from './context/TaskContext';  
   
 const isAuthenticated = () => {  
   return !!localStorage.getItem("token");  
@@ -29,41 +30,45 @@ function App() {
   if (isLoading) {  
     return (  
       <Layout className="container">  
-        {/* Loading spinner can go here */}  
+        {/* Add a loading spinner or message here if desired */}  
+        <div className="loading-spinner">  
+          <div className="spinner"></div>  
+        </div>  
       </Layout>  
     );  
   }  
   
   return (  
-    <Layout className="container">  
-      {isLoggedIn ? (  
-        <>  
-          <Layout.Header className="header">  
-            <Navbar />  
-          </Layout.Header>  
-          <Layout.Content className="main">  
+    <TaskProvider>  
+      <Layout className="container">  
+        {isLoggedIn ? (  
+          <>  
+            <Layout.Header className="header">  
+              <Navbar />  
+            </Layout.Header>  
+            <Layout.Content className="main-content">  
+              <Routes>  
+                <Route path="/" element={<Home />} />  
+                <Route path="/dashboard" element={<Home />} />  
+                <Route path="/activities" element={<Activities />} />  
+                <Route path="/add-task" element={<AddTask />} />  
+                <Route path="/to-do" element={<Todo />} />  
+                <Route path="/profile" element={<Profile />} />  
+                <Route path="*" element={<Navigate to="/" />} />  
+              </Routes>  
+            </Layout.Content>  
+          </>  
+        ) : (  
+          <Layout.Content className="main-content">  
             <Routes>  
-              <Route path="/" element={<Home />} />  
-              <Route path="/dashboard" element={<Home />} />  
-              <Route path="/activities" element={<Activities />} />  
-              <Route path="/add-task" element={<AddTask />} />  
-              <Route path="/to-do" element={<Todo />} />  
-              <Route path="/profile" element={<Profile />} />  
-              <Route path="*" element={<Navigate to="/" />} />  
+              <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />  
+              <Route path="/signup" element={<Signup />} />  
+              <Route path="*" element={<Navigate to="/login" />} />  
             </Routes>  
           </Layout.Content>  
-        </>  
-      ) : (  
-        <Layout.Content className="main">  
-          <Routes>  
-            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />  
-            <Route path="/signup" element={<Signup />} />  
-            <Route path="*" element={<Navigate to="/login" />} />  
-          </Routes>  
-        </Layout.Content>  
-      )}  
-      {/* Footer removed to prevent mobile nav blockage */}  
-    </Layout>  
+        )}  
+      </Layout>  
+    </TaskProvider>  
   );  
 }  
   

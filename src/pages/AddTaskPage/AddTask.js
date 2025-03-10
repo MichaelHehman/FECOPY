@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';  
+import React, { useState, useCallback, useContext } from 'react';  
 import { Form, Input, DatePicker, Button, Select, Upload, message, Card } from 'antd';  
 import { PlusOutlined, LoadingOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';  
 import dayjs from 'dayjs';  
 import styles from './AddTask.module.css';  
+import { TaskContext } from '../../context/TaskContext';  
   
 const { TextArea } = Input;  
 const { Option } = Select;  
@@ -11,21 +12,22 @@ const AddTask = () => {
   const [form] = Form.useForm();  
   const [loading, setLoading] = useState(false);  
   const [imageUrl, setImageUrl] = useState('');  
+  const { addTask } = useContext(TaskContext); // Add this line to use the context  
   
-  // Mock team members - replace with API call in production  
+  // Keep your existing team members array  
   const teamMembers = [  
     { id: 1, name: 'Michael' },  
     { id: 2, name: 'Neha' },  
     { id: 3, name: 'Nhi' },  
   ];  
   
-  // File upload configuration  
+  // Keep your existing upload configuration  
   const uploadConfig = {  
     name: 'file',  
     listType: 'picture-card',  
     className: styles.uploader,  
     showUploadList: false,  
-    action: 'your-upload-endpoint', // Replace with your actual upload endpoint  
+    action: 'your-upload-endpoint',  
     beforeUpload: (file) => {  
       const isImage = file.type.startsWith('image/');  
       if (!isImage) {  
@@ -52,6 +54,7 @@ const AddTask = () => {
     },  
   };  
   
+  // Update your handleSubmit to use the context  
   const handleSubmit = useCallback(async (values) => {  
     try {  
       setLoading(true);  
@@ -60,22 +63,26 @@ const AddTask = () => {
         ...values,  
         dueDate: values.dueDate?.format('YYYY-MM-DD'),  
         image: imageUrl,  
+        status: 'pending', // Add default status  
+        id: Date.now(), // Add unique ID  
       };  
   
-      // Simulate API call  
-      await new Promise(resolve => setTimeout(resolve, 1000));  
-      console.log('Task created:', formattedValues);  
-        
+      // Add to global task context  
+      addTask(formattedValues);  
+  
+      // Show success message  
       message.success('Task created successfully!');  
+        
+      // Reset form  
       form.resetFields();  
       setImageUrl('');  
     } catch (error) {  
-      message.error('Failed to create task. Please try again.');  
+      message.error('Failed to create task');  
       console.error('Error creating task:', error);  
     } finally {  
       setLoading(false);  
     }  
-  }, [form, imageUrl]);  
+  }, [form, imageUrl, addTask]);  
   
   const uploadButton = (  
     <div>  
@@ -84,46 +91,33 @@ const AddTask = () => {
     </div>  
   );  
   
+  // Keep your existing return JSX  
   return (  
     <div className={styles.container}>  
-      <Card className={styles.formCard}>  
-        <h2 className={styles.title}>Add New Task</h2>  
+      <Card className={styles.card}>  
         <Form  
           form={form}  
           layout="vertical"  
           onFinish={handleSubmit}  
           className={styles.form}  
-          initialValues={{  
-            dueDate: dayjs(),  
-          }}  
         >  
           <Form.Item  
             label="Task Name"  
-            name="taskName"  
-            rules={[  
-              { required: true, message: 'Please enter a task name!' },  
-              { min: 3, message: 'Task name must be at least 3 characters!' },  
-            ]}  
+            name="name"  
+            rules={[{ required: true, message: 'Please enter a task name!' }]}  
             className={styles.formItem}  
           >  
-            <Input   
-              placeholder="Enter task name"  
-              maxLength={100}  
-              showCount  
-            />  
+            <Input placeholder="Enter task name" />  
           </Form.Item>  
   
           <Form.Item  
             label="Description"  
             name="description"  
-            rules={[{ required: true, message: 'Please enter a description!' }]}  
             className={styles.formItem}  
           >  
             <TextArea  
               placeholder="Enter task description"  
-              autoSize={{ minRows: 3, maxRows: 6 }}  
-              maxLength={500}  
-              showCount  
+              autoSize={{ minRows: 3, maxRows: 5 }}  
             />  
           </Form.Item>  
   
