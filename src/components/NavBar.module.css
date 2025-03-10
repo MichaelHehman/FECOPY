@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 .nav {
     display: flex;
     flex-direction: row;
@@ -30,7 +30,7 @@
         padding: 0.5em;
     }
 }
-=======
+
  /* Base styles used for both mobile and desktop */  
  .nav {  
   display: flex;  
@@ -125,4 +125,3 @@
   transform: scale(1.1);  
   transition: transform 0.3s ease;  
 }  
->>>>>>> f1077bb9c3ee1433e0ed7586fe08f2f6c868b130
