@@ -1,16 +1,104 @@
-.App {
-  text-align: center;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+:root {  
+  --primary-color: #FAC37F;  
+  --secondary-color: #ffffff;  
+  --text-color: #333333;  
+  --background-color: #f5f5f5;  
+  --transition-timing: 0.3s;  
+}  
+  
+* {  
+  margin: 0;  
+  padding: 0;  
+  box-sizing: border-box;  
+}  
+  
+body {  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,  
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;  
+  background-color: var(--background-color);  
+  color: var(--text-color);  
+  -webkit-font-smoothing: antialiased;  
+  -moz-osx-font-smoothing: grayscale;  
+}  
+  
+/* Rename container class to match App.js Layout */  
+.container {  
+  min-height: 100vh;  
+  /* Space at bottom so content doesn't extend under mobile navbar */  
+  padding-bottom: 70px;  
+  position: relative;  
+}  
+  
+.main-content {  
+  padding: 1rem;  
+  max-width: 1200px;  
+  margin: 0 auto;  
+  position: relative;  
+}  
+  
+/* Page Transitions */  
+.page-enter {  
+  opacity: 0;  
+  transform: translateX(100%);  
+}  
+  
+.page-enter-active {  
+  opacity: 1;  
+  transform: translateX(0);  
+  transition: opacity var(--transition-timing), transform var(--transition-timing);  
+}  
+  
+.page-exit {  
+  opacity: 1;  
+  transform: translateX(0);  
+}  
+  
+.page-exit-active {  
+  opacity: 0;  
+  transform: translateX(-100%);  
+  transition: opacity var(--transition-timing), transform var(--transition-timing);  
+}  
+  
+/* Loading Spinner */  
+.loading-spinner {  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  height: 100vh;  
+}  
+  
+.spinner {  
+  width: 50px;  
+  height: 50px;  
+  border: 5px solid var(--background-color);  
+  border-top: 5px solid var(--primary-color);  
+  border-radius: 50%;  
+  animation: spin 1s linear infinite;  
+}  
+  
+@keyframes spin {  
+  0% { transform: rotate(0deg); }  
+  100% { transform: rotate(360deg); }  
+}  
+  
+/* Mobile-first responsive design */  
+@media (max-width: 600px) {  
+  .main-content {  
+      padding: 0.5rem;  
+  }  
+}  
+  
+/* Tablet and larger screens */  
+@media (min-width: 601px) {  
+  .container {  
+      padding-top: 60px;  
+      padding-bottom: 0; /* Footer removed, so no bottom padding necessary here */  
+  }  
+}  
+  
+/* Desktop screens */  
+@media (min-width: 1024px) {  
+  .main-content {  
+      padding: 2rem;  
+  }  
+}  

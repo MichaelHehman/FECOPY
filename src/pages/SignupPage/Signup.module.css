@@ -1,38 +1,91 @@
-.signupPage {
-    background-image: url('../../../public/assets/images/signupBg.png');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 40px;
-}
-
-.signupForm {
-    margin-top: 50px;
-    border-radius: 8px;
-    align-items: center;
-    width: 100%;
-    background-color: white;
-    padding: 20px;
-}
-
-.header {
-    text-align: center;
-    color: #A75E2A;
-    font-size: 30px;
-    margin-bottom: 20px;
-}
-
-.formItem {
-    border: 0;
-    box-shadow: 2px 2px 10px #cecece;
-}
-
-.signupBtn {
-    background-color: white !important;
-    border: 0;
-    box-shadow: 2px 2px 10px #cecece;
-}
+.signupContainer {  
+    min-height: 100vh;  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+    padding: 24px;  
+    background: #f0f2f5;  
+}  
+  
+.signupCard {  
+    width: 100%;  
+    max-width: 420px;  
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  
+    border-radius: 8px;  
+}  
+  
+.title {  
+    text-align: center;  
+    margin-bottom: 32px !important;  
+    color: #333;  
+}  
+  
+.alert {  
+    margin-bottom: 24px;  
+}  
+  
+.form {  
+    width: 100%;  
+}  
+  
+.passwordStrength {  
+    margin-top: -12px;  
+    margin-bottom: 24px;  
+}  
+  
+.submitButton {  
+    height: 40px;  
+    font-size: 16px;  
+}  
+  
+.divider {  
+    margin: 24px 0;  
+    position: relative;  
+}  
+  
+.divider::before,  
+.divider::after {  
+    content: '';  
+    position: absolute;  
+    top: 50%;  
+    width: 45%;  
+    height: 1px;  
+    background: #e8e8e8;  
+}  
+  
+.divider::before {  
+    left: 0;  
+}  
+  
+.divider::after {  
+    right: 0;  
+}  
+  
+.divider span {  
+    background: #fff;  
+    padding: 0 8px;  
+    color: #666;  
+}  
+  
+.googleButton {  
+    height: 40px;  
+    font-size: 16px;  
+    border: 1px solid #e8e8e8;  
+}  
+  
+.footer {  
+    margin-top: 24px;  
+    text-align: center;  
+}  
+  
+/* Responsive Design */  
+@media (max-width: 480px) {  
+    .signupCard {  
+        box-shadow: none;  
+        background: transparent;  
+    }  
+  
+    .signupContainer {  
+        padding: 16px;  
+    }  
+}  

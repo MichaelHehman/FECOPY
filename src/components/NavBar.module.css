@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .nav {
     display: flex;
     flex-direction: row;
@@ -29,3 +30,99 @@
         padding: 0.5em;
     }
 }
+=======
+ /* Base styles used for both mobile and desktop */  
+ .nav {  
+  display: flex;  
+  flex-direction: row;  
+  justify-content: space-around;  
+  align-items: center;  
+  background-color: #FAC37F;  
+  width: 100%;  
+  z-index: 1000;  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
+}  
+  
+/* Mobile: Navbar fixed at bottom */  
+@media screen and (max-width: 600px) {  
+  .nav {  
+    position: fixed;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;  
+    height: 60px;            /* Fixed height for mobile */  
+    padding: 0 10px;  
+  }  
+  
+  .navBtn {  
+    flex: 1;  
+    height: 100%;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+  }  
+  
+  .icon {  
+    width: 24px;             /* Fixed size for mobile icons */  
+    height: 24px;  
+    padding: 2px;  
+  }  
+}  
+  
+/* Desktop: Navbar fixed at top */  
+@media screen and (min-width: 601px) {  
+  .nav {  
+    position: fixed;  
+    top: 0;  
+    left: 0;  
+    right: 0;  
+    height: 70px;            /* Fixed height for desktop */  
+    padding: 0 20px;  
+  }  
+  
+  .navBtn {  
+    flex: 1;  
+    height: 100%;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+  }  
+  
+  .icon {  
+    width: 2.5em;            /* Use em units for desktop icons */  
+    height: 2.5em;  
+    padding: 0.3em;  
+  }  
+}  
+  
+/* Default button hover styles and active indicator */  
+.navBtn {  
+  position: relative;  
+  transition: background-color 0.3s ease;  
+}  
+  
+.navBtn:hover {  
+  background-color: rgba(255, 255, 255, 0.2);  
+}  
+  
+.navBtn.active {  
+  color: #ffffff;  
+}  
+  
+.navBtn.active::after {  
+  content: '';  
+  position: absolute;  
+  bottom: 4px;  
+  left: 50%;  
+  transform: translateX(-50%);  
+  width: 4px;  
+  height: 4px;  
+  background-color: #ffffff;  
+  border-radius: 50%;  
+}  
+  
+.navBtn:hover .icon {  
+  transform: scale(1.1);  
+  transition: transform 0.3s ease;  
+}  
+>>>>>>> f1077bb9c3ee1433e0ed7586fe08f2f6c868b130

@@ -1,26 +1,47 @@
-.dots {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 0 auto;
-    list-style: none;
-}
-
-.taskList {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.taskListTitle {
-    font-size: 32px;
-    color: #A75E2A;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
+.container {  
+    display: flex;  
+    flex-direction: column;  
+    gap: 20px;  
+    padding: 20px;  
+    height: 100%;  
+    width: 100%;  
+    max-width: 1200px;  
+    margin: 0 auto;  
+  }  
+    
+  .calendar {  
+    background: white;  
+    border-radius: 8px;  
+    padding: 20px;  
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
+  }  
+    
+  .taskList {  
+    background: white;  
+    border-radius: 8px;  
+    padding: 20px;  
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
+    flex-grow: 1;  
+  }  
+    
+  .taskListTitle {  
+    font-size: 1.5rem;  
+    font-weight: 600;  
+    color: #333;  
+    margin-bottom: 20px;  
+    padding-bottom: 10px;  
+    border-bottom: 2px solid #f0f0f0;  
+  }  
+    
+  /* Ant Design Calendar Overrides */  
+  :global(.ant-picker-calendar) {  
+    background: white;  
+  }  
+    
+  :global(.ant-picker-calendar-full .ant-picker-panel) {  
+    background: transparent;  
+  }  
+    
+  :global(.ant-badge-count) {  
+    z-index: 1;  
+  }  
