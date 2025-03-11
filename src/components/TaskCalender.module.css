@@ -1,0 +1,59 @@
+.calendarContainer {  
+    padding: 20px;  
+    background-color: #FAC37F;  
+  }  
+    
+  .calendarCard,  
+  .tasksCard {  
+    margin-bottom: 20px;  
+    border-radius: 8px;  
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
+  }  
+    
+  .calendar {  
+    background: white;  
+    padding: 12px;  
+    border-radius: 8px;  
+  }  
+    
+  .events {  
+    margin: 0;  
+    padding: 0;  
+    list-style: none;  
+  }  
+    
+  .events li {  
+    margin-bottom: 4px;  
+    padding: 0;  
+    font-size: 12px;  
+    white-space: nowrap;  
+    overflow: hidden;  
+    text-overflow: ellipsis;  
+  }  
+    
+  .badge {  
+    width: 100%;  
+    overflow: hidden;  
+    text-overflow: ellipsis;  
+  }  
+    
+  .taskList {  
+    margin-top: 16px;  
+  }  
+    
+  .taskItem {  
+    padding: 12px;  
+    border-radius: 4px;  
+    margin-bottom: 8px;  
+    background: white;  
+  }  
+    
+  .taskDescription {  
+    display: flex;  
+    justify-content: space-between;  
+    margin-top: 8px;  
+  }  
+    
+  .taskDescription span {  
+    margin-right: 16px;  
+  }  
