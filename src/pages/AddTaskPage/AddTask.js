@@ -12,16 +12,21 @@ const AddTask = () => {
   const [form] = Form.useForm();  
   const [loading, setLoading] = useState(false);  
   const [imageUrl, setImageUrl] = useState('');  
-  const { addTask } = useContext(TaskContext); // Add this line to use the context  
+  const { addTask } = useContext(TaskContext);  
   
-  // Keep your existing team members array  
   const teamMembers = [  
     { id: 1, name: 'Michael' },  
     { id: 2, name: 'Neha' },  
     { id: 3, name: 'Nhi' },  
   ];  
   
-  // Keep your existing upload configuration  
+  const uploadButton = (  
+    <div>  
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}  
+      <div style={{ marginTop: 8 }}>Upload</div>  
+    </div>  
+  );  
+  
   const uploadConfig = {  
     name: 'file',  
     listType: 'picture-card',  
@@ -54,65 +59,57 @@ const AddTask = () => {
     },  
   };  
   
-  // Update your handleSubmit to use the context  
   const handleSubmit = useCallback(async (values) => {  
     try {  
       setLoading(true);  
-      // Format the date  
-      const formattedValues = {  
-        ...values,  
-        dueDate: values.dueDate?.format('YYYY-MM-DD'),  
-        image: imageUrl,  
-        status: 'pending', // Add default status  
-        id: Date.now(), // Add unique ID  
+        
+      // Find the team member name based on the selected ID  
+      const selectedMember = teamMembers.find(member => member.id === values.assignTo);  
+        
+      const taskData = {  
+        title: values.title,  
+        description: values.description,  
+        assignTo: selectedMember.name, // Use the name instead of ID  
+        dueDate: values.dueDate.format('YYYY-MM-DD'),  
+        image: imageUrl  
       };  
   
-      // Add to global task context  
-      addTask(formattedValues);  
-  
-      // Show success message  
-      message.success('Task created successfully!');  
+      addTask(taskData);  
         
-      // Reset form  
+      // Reset form and show success message  
       form.resetFields();  
       setImageUrl('');  
+      message.success('Task created successfully!');  
     } catch (error) {  
-      message.error('Failed to create task');  
       console.error('Error creating task:', error);  
+      message.error('Failed to create task');  
     } finally {  
       setLoading(false);  
     }  
-  }, [form, imageUrl, addTask]);  
+  }, [form, imageUrl, addTask, teamMembers]);  
   
-  const uploadButton = (  
-    <div>  
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}  
-      <div className={styles.uploadText}>Upload</div>  
-    </div>  
-  );  
-  
-  // Keep your existing return JSX  
   return (  
     <div className={styles.container}>  
       <Card className={styles.card}>  
         <Form  
           form={form}  
-          layout="vertical"  
           onFinish={handleSubmit}  
+          layout="vertical"  
           className={styles.form}  
         >  
           <Form.Item  
-            label="Task Name"  
-            name="name"  
-            rules={[{ required: true, message: 'Please enter a task name!' }]}  
+            label="Task Title"  
+            name="title"  
+            rules={[{ required: true, message: 'Please enter a task title!' }]}  
             className={styles.formItem}  
           >  
-            <Input placeholder="Enter task name" />  
+            <Input placeholder="Enter task title" />  
           </Form.Item>  
   
           <Form.Item  
             label="Description"  
             name="description"  
+            rules={[{ required: true, message: 'Please enter a task description!' }]}  
             className={styles.formItem}  
           >  
             <TextArea  
