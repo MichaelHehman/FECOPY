@@ -1,279 +1,75 @@
- /* Page Layout */  
- .pageWrapper {  
-  padding: 24px;  
-  max-width: 1200px;  
-  margin: 0 auto;  
-  min-height: 100vh;  
-  background-color: #fafafa;  
-}  
-  
-/* Progress Card Styles */  
-.progressCard {  
-  margin-bottom: 24px;  
-  border-radius: 12px;  
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
-  background: white;  
-  transition: all 0.3s ease;  
-}  
-  
-.progressCard:hover {  
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);  
-  transform: translateY(-2px);  
-}  
-  
-.progressWrapper {  
-  display: flex;  
-  align-items: center;  
-  gap: 32px;  
-  padding: 16px;  
-}  
-  
-.progressCircle {  
-  flex-shrink: 0;  
-}  
-  
-.progressTitle {  
-  margin-bottom: 16px !important;  
-  color: #A75E2A;  
-  font-weight: 600;  
-}  
-  
-.progressStatus {  
-  display: flex;  
-  flex-direction: column;  
-  gap: 8px;  
-}  
-  
-.statusItem {  
-  display: flex;  
-  align-items: center;  
-  gap: 12px;  
-}  
-  
-.statusDot {  
-  width: 10px;  
-  height: 10px;  
-  border-radius: 50%;  
-  display: inline-block;  
-}  
-  
-.statusText {  
-  font-size: 14px;  
-  color: #A75E2A;  
-  min-width: 80px;  
-}  
-  
-.statusPercent {  
-  font-size: 14px;  
-  font-weight: 600;  
-  color: #A75E2A;  
-}  
-  
-/* Task Card Styles */  
-.taskCard {  
-  border-radius: 12px;  
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
-  background: white;  
-}  
-  
-.taskCard :global(.ant-card-head) {  
-  border-bottom: 1px solid #f0f0f0;  
-  padding: 16px 24px;  
-}  
-  
-.taskCard :global(.ant-card-body) {  
-  padding: 0;  
-}  
-  
-/* Task Item Styles */  
-.taskItem {  
-  padding: 16px 24px !important;  
-  border-bottom: 1px solid #f0f0f0;  
-  transition: background-color 0.3s ease;  
-}  
-  
-.taskItem:hover {  
-  background-color: #fafafa;  
-}  
-  
-.taskItem:last-child {  
-  border-bottom: none;  
-}  
-  
-.taskTitle {  
-  color: #A75E2A;  
-  font-size: 16px;  
-  font-weight: 500;  
-  margin-bottom: 8px;  
-  display: block;  
-}  
-  
-.taskDescription {  
-  color: #666;  
-  font-size: 14px;  
-  display: block;  
-  margin-bottom: 12px;  
-}  
-  
-.taskDetails {  
-  display: flex;  
-  align-items: center;  
-  gap: 16px;  
-  margin-top: 8px;  
-}  
-  
-.taskDate,  
-.taskTime {  
-  color: #888;  
-  font-size: 14px;  
-  display: flex;  
-  align-items: center;  
-  gap: 4px;  
-}  
-  
-/* Tag Styles */  
-:global(.ant-tag) {  
-  border-radius: 4px;  
-  padding: 2px 8px;  
-  font-size: 12px;  
-  border: none;  
-}  
-  
-/* Animation for new tasks */  
-@keyframes fadeIn {  
-  from {  
-    opacity: 0;  
-    transform: translateY(10px);  
-  }  
-  to {  
-    opacity: 1;  
-    transform: translateY(0);  
-  }  
-}  
-  
-.taskItem {  
-  animation: fadeIn 0.3s ease;  
-}  
-  
-/* Responsive Design */  
-@media (max-width: 768px) {  
-  .pageWrapper {  
-    padding: 16px;  
-  }  
-  
-  .progressWrapper {  
-    flex-direction: column;  
-    text-align: center;  
-    gap: 16px;  
-  }  
-  
-  .progressStatus {  
-    align-items: center;  
-  }  
-  
-  .taskDetails {  
-    flex-wrap: wrap;  
-    justify-content: space-between;  
-  }  
-  
-  .taskDate,  
-  .taskTime {  
-    font-size: 12px;  
-  }  
-}  
-  
-/* Dark Mode Support */  
-@media (prefers-color-scheme: dark) {  
-  .pageWrapper {  
-    background-color: #141414;  
-  }  
-  
-  .progressCard,  
-  .taskCard {  
-    background: #1f1f1f;  
-    border: 1px solid #303030;  
-  }  
-  
-  .taskItem:hover {  
-    background-color: #262626;  
-  }  
-  
-  .taskTitle {  
-    color: #d4b48c;  
-  }  
-  
-  .taskDescription {  
-    color: #999;  
-  }  
-  
-  .taskDate,  
-  .taskTime {  
-    color: #777;  
-  }  
-  
-  .statusText,  
-  .statusPercent,  
-  .progressTitle {  
-    color: #d4b48c !important;  
-  }  
-}  
-  
-/* Loading State Styles */  
-.loadingOverlay {  
-  position: absolute;  
-  top: 0;  
-  left: 0;  
-  right: 0;  
-  bottom: 0;  
-  background: rgba(255, 255, 255, 0.7);  
-  display: flex;  
-  justify-content: center;  
-  align-items: center;  
-  z-index: 1;  
-}  
-  
-/* Empty State Styles */  
-.emptyState {  
-  text-align: center;  
-  padding: 48px 0;  
-  color: #999;  
-}  
-  
-/* Hover Effects */  
-.taskItem:hover .taskTitle {  
-  color: #8B4513;  
-}  
-  
-.taskItem:hover :global(.ant-tag) {  
-  transform: scale(1.05);  
-  transition: transform 0.2s ease;  
-}  
-  
-/* Accessibility */  
-@media (prefers-reduced-motion: reduce) {  
-  .taskItem,  
-  .progressCard:hover,  
-  .taskItem:hover :global(.ant-tag) {  
-    animation: none;  
-    transform: none;  
-    transition: none;  
-  }  
-}  
-  
-/* Print Styles */  
-@media print {  
-  .pageWrapper {  
-    padding: 0;  
-    background: white;  
-  }  
-  
-  .progressCard,  
-  .taskCard {  
-    box-shadow: none;  
-    border: 1px solid #eee;  
-  }  
-  
-  .taskItem {  
-    break-inside: avoid;  
-  }  
-}  
+ /* Todo.module.css */  
+ .pageWrapper {    
+  padding: 24px;    
+  max-width: 1200px;    
+  margin: 0 auto;    
+}    
+    
+.progressCard {    
+  margin-bottom: 24px;    
+  border-radius: 12px;    
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);    
+}    
+    
+.progressWrapper {    
+  display: flex;    
+  align-items: center;    
+  gap: 24px;    
+}    
+    
+.progressCircle {    
+  flex-shrink: 0;    
+}    
+    
+.progressStatus {    
+  display: flex;    
+  flex-direction: column;    
+  gap: 8px;    
+}    
+    
+.taskCard {    
+  margin-top: 24px;    
+  border-radius: 12px;    
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);    
+}    
+    
+.taskItem {    
+  display: flex;    
+  flex-direction: column;    
+  gap: 8px;    
+  padding: 16px;    
+  border-radius: 8px;    
+  background: #f8f9fa;    
+  margin-bottom: 12px;    
+  transition: all 0.3s ease;    
+}    
+    
+.taskItem:hover {    
+  background: #f0f2f5;    
+  transform: translateY(-2px);    
+}    
+    
+.taskTitle {    
+  margin: 0;    
+  color: #333;    
+}    
+    
+.taskDescription {    
+  color: #666;    
+}    
+    
+.taskDetails {    
+  display: flex;    
+  gap: 24px;    
+  align-items: center;    
+}    
+    
+.taskDate {    
+  color: #333;    
+  font-weight: 500;    
+}    
+    
+.taskTime {    
+  color: #333;    
+  font-weight: 500;    
+}    

@@ -1,136 +1,72 @@
-import React, { useState, useEffect, useContext } from 'react';  
-import { Card, List, Typography, Progress, Tag, DatePicker, Button } from 'antd';  
-import { UserOutlined, CalendarOutlined } from '@ant-design/icons';  
-import dayjs from 'dayjs';  
-import styles from './Activities.module.css';  
+import React, { useMemo, useContext } from 'react';  
+import { Card, List, Progress, Tag, Typography } from 'antd';  
 import { TaskContext } from '../../context/TaskContext';  
+import styles from './Activities.module.css';  
   
-const { Title, Text } = Typography;  
-const { RangePicker } = DatePicker;  
+const { Title } = Typography;  
   
 const Activities = () => {  
-  // Replace tasks state with context  
-  const { tasks, updateTaskStatus, deleteTask } = useContext(TaskContext);  
-  const [loading, setLoading] = useState(false);  
-  const [dateRange, setDateRange] = useState([dayjs().subtract(30, 'days'), dayjs()]);  
-  const [userProgress, setUserProgress] = useState({  
-    done: 0,  
-    notDone: 0,  
-    userName: "Nhi"  
-  });  
+  const { tasks } = useContext(TaskContext);  
   
-  // Calculate progress from tasks whenever tasks update  
-  useEffect(() => {  
-    const totalTasks = tasks.length;  
-    const completedTasks = tasks.filter(task => task.status === 'completed').length;  
-    const donePercentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;  
-    setUserProgress(prev => ({  
-      ...prev,  
-      done: donePercentage,  
-      notDone: 100 - donePercentage  
-    }));  
+  // Calculate overall progress percentage for all tasks  
+  const progressPercent = useMemo(() => {  
+    const total = tasks.length;  
+    const doneCount = tasks.filter(task => task.status.toLowerCase() === 'completed').length;  
+    return total > 0 ? Math.round((doneCount / total) * 100) : 0;  
   }, [tasks]);  
   
-  const handleDateRangeChange = values => {  
-    setDateRange(values);  
-  };  
-  
-  // Filter tasks based on the selected date range  
-  const filteredTasks = tasks.filter(task => {  
-    if (!dateRange || !dateRange[0] || !dateRange[1]) return true;  
-    const taskDate = dayjs(task.date);  
-    return taskDate.isAfter(dateRange[0]) && taskDate.isBefore(dateRange[1]);  
-  });  
-  
-  const handleComplete = async (taskId) => {  
-    try {  
-      setLoading(true);  
-      await updateTaskStatus(taskId, 'completed');  
-      setLoading(false);  
-    } catch (error) {  
-      console.error('Error completing task:', error);  
-      setLoading(false);  
-    }  
-  };  
-  
-  const handleDelete = async (taskId) => {  
-    try {  
-      setLoading(true);  
-      await deleteTask(taskId);  
-      setLoading(false);  
-    } catch (error) {  
-      console.error('Error deleting task:', error);  
-      setLoading(false);  
-    }  
-  };  
+  // Sort tasks by date (most recent first)  
+  const sortedTasks = [...tasks].sort((a, b) => new Date(b.date) - new Date(a.date));  
   
   return (  
-    <div className={styles.container}>  
+    <div className={styles.activitiesContainer}>  
+      {/* Progress Wheel Section for Household Tasks */}  
       <Card className={styles.progressCard}>  
-        <Title level={4}>Task Progress</Title>  
-        <Progress  
-          type="circle"  
-          percent={userProgress.done}  
-          format={percent => `${percent}% Done`}  
-          className={styles.progressCircle}  
-        />  
-        <Text className={styles.progressText}>  
-          Tasks completed by {userProgress.userName}  
-        </Text>  
+        <div className={styles.progressWrapper}>  
+          <Progress  
+            type="circle"  
+            percent={progressPercent}  
+            strokeColor={progressPercent === 100 ? "#52c41a" : "#FFD700"}  
+            className={styles.progressCircle}  
+          />  
+          <div className={styles.progressStatus}>  
+            <Title level={4} className={styles.progressTitle}>  
+              Household Tasks Progress  
+            </Title>  
+            <div className={styles.statusItem}>  
+              <div className={styles.statusDot} style={{ background: "#52c41a" }} />  
+              <span className={styles.statusText}>Completed {progressPercent}%</span>  
+            </div>  
+          </div>  
+        </div>  
       </Card>  
   
-      <div className={styles.filterSection}>  
-        <Title level={4}>Activity History</Title>  
-        <RangePicker  
-          value={dateRange}  
-          onChange={handleDateRangeChange}  
-          className={styles.datePicker}  
-        />  
-      </div>  
-  
-      <div className={styles.activitiesList}>  
-        <List  
-          loading={loading}  
-          dataSource={filteredTasks}  
-          renderItem={task => (  
-            <List.Item className={styles.taskItem}>  
-              <Tag className={styles.taskTag} color={task.status === 'completed' ? 'green' : 'orange'}>  
-                Task #{task.id}  
-              </Tag>  
-              <Title level={5} className={styles.taskTitle}>{task.title}</Title>  
-              <div className={styles.taskDetails}>  
-                <Text>  
-                  <UserOutlined className={styles.icon} />  
-                  Done by <span className={styles.detailValue}>{task.doneBy}</span>  
-                </Text>  
-                <Text>  
-                  <CalendarOutlined className={styles.icon} />  
-                  <span className={styles.detailValue}>  
-                    {dayjs(task.date).format('MMM DD, YYYY')}  
-                  </span>  
-                </Text>  
-              </div>  
-              <div className={styles.taskActions}>  
-                {task.status !== 'completed' && (  
-                  <Button  
-                    type="primary"  
-                    onClick={() => handleComplete(task.id)}  
-                    className={`${styles.taskButton} ${styles.completeButton}`}  
-                  >  
-                    Complete  
-                  </Button>  
-                )}  
-                <Button  
-                  danger  
-                  onClick={() => handleDelete(task.id)}  
-                  className={`${styles.taskButton} ${styles.deleteButton}`}  
-                >  
-                  Delete  
-                </Button>  
-              </div>  
-            </List.Item>  
-          )}  
-        />  
+      {/* Recent Activities Section */}  
+      <div className={styles.tasksSection}>  
+        <Card className={styles.tasksCard}>  
+          <Title level={4}>Recent Activities</Title>  
+          <List  
+            className={styles.taskList}  
+            itemLayout="horizontal"  
+            dataSource={sortedTasks}  
+            renderItem={task => (  
+              <List.Item>  
+                <List.Item.Meta  
+                  title={task.title}  
+                  description={  
+                    <div className={styles.taskDescription}>  
+                      <span>Done by: {task.doneBy}</span>  
+                      <span>Date: {task.date}</span>  
+                      <Tag color={task.status.toLowerCase() === 'completed' ? 'green' : 'volcano'}>  
+                        {task.status}  
+                      </Tag>  
+                    </div>  
+                  }  
+                />  
+              </List.Item>  
+            )}  
+          />  
+        </Card>  
       </div>  
     </div>  
   );  

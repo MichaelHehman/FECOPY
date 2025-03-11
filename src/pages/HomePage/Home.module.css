@@ -1,47 +1,74 @@
-.container {  
-    display: flex;  
-    flex-direction: column;  
-    gap: 20px;  
-    padding: 20px;  
-    height: 100%;  
-    width: 100%;  
-    max-width: 1200px;  
-    margin: 0 auto;  
-  }  
+.container {    
+  display: flex;    
+  flex-direction: column;    
+  gap: 20px;    
+  padding: 20px;    
+  width: 100%;    
+  max-width: 1200px;    
+  margin: 0 auto;  
+  min-height: 100vh;  
+  overflow-y: auto;  
+}    
     
-  .calendar {  
-    background: white;  
-    border-radius: 8px;  
-    padding: 20px;  
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
-  }  
+.calendar {    
+  background: white;    
+  border-radius: 8px;    
+  padding: 20px;    
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);    
+}    
     
-  .taskList {  
-    background: white;  
-    border-radius: 8px;  
-    padding: 20px;  
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
-    flex-grow: 1;  
-  }  
+.taskList {    
+  background: white;    
+  border-radius: 8px;    
+  padding: 20px;    
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);    
+  margin-bottom: 20px;  
+}    
     
-  .taskListTitle {  
-    font-size: 1.5rem;  
-    font-weight: 600;  
-    color: #333;  
-    margin-bottom: 20px;  
-    padding-bottom: 10px;  
-    border-bottom: 2px solid #f0f0f0;  
-  }  
+.taskListTitle {    
+  font-size: 1.5rem;    
+  font-weight: 600;    
+  color: #333;    
+  margin-bottom: 20px;    
+  padding-bottom: 10px;    
+  border-bottom: 2px solid #f0f0f0;    
+}    
+
+.events {  
+  margin: 0;  
+  padding: 0;  
+  list-style: none;  
+}  
+
+.events li {  
+  margin-bottom: 4px;  
+  padding: 0;  
+  font-size: 12px;  
+  white-space: nowrap;  
+  overflow: hidden;  
+  text-overflow: ellipsis;  
+}  
+
+/* Ant Design Calendar Overrides */    
+:global(.ant-picker-calendar) {    
+  background: white;    
+}    
     
-  /* Ant Design Calendar Overrides */  
-  :global(.ant-picker-calendar) {  
-    background: white;  
-  }  
+:global(.ant-picker-calendar-full .ant-picker-panel) {    
+  background: transparent;    
+}    
     
-  :global(.ant-picker-calendar-full .ant-picker-panel) {  
-    background: transparent;  
+:global(.ant-badge-count) {    
+  z-index: 1;    
+}    
+
+/* Responsive styles */  
+@media (max-width: 768px) {  
+  .container {  
+      padding: 16px;  
   }  
-    
-  :global(.ant-badge-count) {  
-    z-index: 1;  
+
+  .events li {  
+      font-size: 11px;  
   }  
+}  
