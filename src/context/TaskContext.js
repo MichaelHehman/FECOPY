@@ -36,7 +36,7 @@ export const TaskProvider = ({ children }) => {
       title: task.title || task.name, // Handle both title and name properties  
       doneBy: task.assignTo, // Map from your form field  
       date: task.dueDate, // Map from your form field  
-      status: 'pending',  
+      status: 'pending',    
       description: task.description,  
       image: task.image  
     };  
