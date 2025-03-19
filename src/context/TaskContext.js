@@ -1,44 +1,53 @@
-import React, { createContext, useState } from 'react';  
-   
+import React, { createContext, useState, useEffect } from 'react';  
+  
 export const TaskContext = createContext();  
   
 export const TaskProvider = ({ children }) => {  
-  // Initialize with your existing mock tasks to have some data to start with  
-  const [tasks, setTasks] = useState([  
-    {      
-      id: 10,      
-      title: 'Clean up Bath Tub',      
-      doneBy: 'Neha',      
-      date: '2024-10-10',      
-      status: 'completed'      
+  // On initial load, attempt to retrieve tasks from localStorage,  
+  // otherwise use the default mock tasks.  
+  const initialTasks = JSON.parse(localStorage.getItem('tasks')) || [  
+    {  
+      id: 10,  
+      title: 'Clean up Bath Tub',  
+      doneBy: 'Neha',  
+      description: 'Deep clean the bathtub with cleaning supplies under the sink',  
+      date: '2024-10-10',  
+      status: 'completed'  
     },  
-    {      
-      id: 18,      
-      title: 'Take out the trash in kitchen',      
-      doneBy: 'Michael',      
-      date: '2024-10-08',      
-      status: 'completed'      
+    {  
+      id: 18,  
+      title: 'Take out the trash in kitchen',  
+      description: 'Empty all trash bins and replace bags',  
+      doneBy: 'Michael',  
+      date: '2024-10-08',  
+      status: 'completed'  
     },  
-    {      
-      id: 1,      
-      title: 'Buy new detergent for dishwasher',      
-      doneBy: 'Michael',      
-      date: '2024-10-07',      
-      status: 'pending'      
+    {  
+      id: 1,  
+      title: 'Buy new detergent for dishwasher',  
+      description: 'Get the Cascade Complete pods from Target',  
+      doneBy: 'Michael',  
+      date: '2024-10-07',  
+      status: 'pending'  
     }  
-  ]);  
+  ];  
+  
+  const [tasks, setTasks] = useState(initialTasks);  
+  
+  // Save tasks to localStorage whenever the tasks state changes  
+  useEffect(() => {  
+    localStorage.setItem('tasks', JSON.stringify(tasks));  
+  }, [tasks]);  
   
   // Function to add a new task  
   const addTask = (task) => {  
-    // Create a new task object with proper structure matching your existing tasks  
     const newTask = {  
-      id: Date.now(),  
-      title: task.title || task.name, // Handle both title and name properties  
-      doneBy: task.assignTo, // Map from your form field  
-      date: task.dueDate, // Map from your form field  
-      status: 'pending',    
-      description: task.description,  
-      image: task.image  
+      id: task.id,  
+      title: task.title,  
+      description: task.description || '',  
+      doneBy: task.doneBy,  
+      date: task.date,  
+      status: task.status || 'pending'  
     };  
     setTasks(prevTasks => [...prevTasks, newTask]);  
   };  

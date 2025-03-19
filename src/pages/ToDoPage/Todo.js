@@ -6,9 +6,9 @@ import { TaskContext } from "../../context/TaskContext";
 const { Title, Text } = Typography;  
   
 const Todo = () => {  
-  const { tasks, updateTaskStatus, deleteTask } = useContext(TaskContext);  
+  const { tasks, updateTaskStatus } = useContext(TaskContext);  
   
-  // Dynamically calculate the progress percentage  
+  // Calculates the progress percentage  
   const progressPercent = useMemo(() => {  
     const total = tasks.length;  
     const completedCount = tasks.filter(  
@@ -20,11 +20,6 @@ const Todo = () => {
   // Function to mark a task as complete  
   const handleComplete = (taskId) => {  
     updateTaskStatus(taskId, "completed");  
-  };  
-  
-  // Function to delete a task from the list  
-  const handleDelete = (taskId) => {  
-    deleteTask(taskId);  
   };  
   
   return (  
@@ -70,10 +65,7 @@ const Todo = () => {
                   key="complete"  
                 >  
                   {task.status === "completed" ? "✓" : "Complete"}  
-                </Button>,  
-                <Button onClick={() => handleDelete(task.id)} danger key="delete">  
-                  Delete  
-                </Button>,  
+                </Button>  
               ]}  
             >  
               <List.Item.Meta  
