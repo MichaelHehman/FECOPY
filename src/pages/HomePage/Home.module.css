@@ -1,74 +1,86 @@
-.container {    
-  display: flex;    
-  flex-direction: column;    
-  gap: 20px;    
-  padding: 20px;    
-  width: 100%;    
-  max-width: 1200px;    
-  margin: 0 auto;  
-  min-height: 100vh;  
-  overflow-y: auto;  
-}    
-    
-.calendar {    
-  background: white;    
-  border-radius: 8px;    
-  padding: 20px;    
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);    
-}    
-    
-.taskList {    
-  background: white;    
-  border-radius: 8px;    
-  padding: 20px;    
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);    
-  margin-bottom: 20px;  
-}    
-    
-.taskListTitle {    
-  font-size: 1.5rem;    
-  font-weight: 600;    
-  color: #333;    
+.container {      
+  display: flex;      
+  flex-direction: column;      
+  gap: 20px;      
+  padding: 24px;         /* Same padding on left and right */  
+  width: 100%;      
+  max-width: 1200px;      
+  margin: 0 auto;    
+  min-height: 100vh;    
+  overflow-y: auto;    
+  box-sizing: border-box;  /* Ensure container padding is included */  
+}      
+      
+.calendar {      
+  background: white;      
+  border-radius: 8px;      
+  padding: 24px;      
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
+  width: 100%;              /* Use full width of container */  
+  box-sizing: border-box;   /* Include padding in the width */  
+  margin: 0 auto;           /* Center the card */  
+}      
+      
+.taskList {      
+  background: white;      
+  border-radius: 8px;      
+  padding: 24px;      
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);      
   margin-bottom: 20px;    
-  padding-bottom: 10px;    
-  border-bottom: 2px solid #f0f0f0;    
+  width: 100%;      
+  box-sizing: border-box;  
+  margin: 0 auto;  
+}      
+      
+.taskListTitle {      
+  font-size: 1.5rem;      
+  font-weight: 600;      
+  color: #333;      
+  margin-bottom: 20px;      
+  padding-bottom: 10px;      
+  border-bottom: 2px solid #f0f0f0;      
+}      
+  
+.events {    
+  margin: 0;    
+  padding: 0;    
+  list-style: none;    
 }    
-
-.events {  
-  margin: 0;  
-  padding: 0;  
-  list-style: none;  
-}  
-
-.events li {  
-  margin-bottom: 4px;  
-  padding: 0;  
-  font-size: 12px;  
-  white-space: nowrap;  
-  overflow: hidden;  
-  text-overflow: ellipsis;  
-}  
-
-/* Ant Design Calendar Overrides */    
-:global(.ant-picker-calendar) {    
-  background: white;    
+  
+.events li {    
+  margin-bottom: 4px;    
+  padding: 0;    
+  font-size: 12px;    
+  white-space: nowrap;    
+  overflow: hidden;    
+  text-overflow: ellipsis;    
 }    
-    
-:global(.ant-picker-calendar-full .ant-picker-panel) {    
-  background: transparent;    
+  
+/* Ant Design Calendar Overrides */      
+:global(.ant-picker-calendar) {      
+  background: white;      
+  width: 100% !important;  /* force full width */  
+  box-sizing: border-box;  
+}      
+      
+:global(.ant-picker-calendar-full .ant-picker-panel) {      
+  background: transparent;      
+  padding: 0 !important;      
+  width: 100%;  
+  box-sizing: border-box;    
+}      
+      
+:global(.ant-badge-count) {      
+  z-index: 1;      
+}      
+  
+/* Responsive styles */    
+@media (max-width: 768px) {    
+  .container {    
+    padding: 16px;    
+  }    
+  
+  .events li {    
+    font-size: 11px;    
+  }    
 }    
-    
-:global(.ant-badge-count) {    
-  z-index: 1;    
-}    
-
-/* Responsive styles */  
-@media (max-width: 768px) {  
-  .container {  
-      padding: 16px;  
-  }  
-
-  .events li {  
-      font-size: 11px;  
-  }  
-}  
